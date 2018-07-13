@@ -1,0 +1,567 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		EA062D8920F94C1D00D10857 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA062D8820F94C1D00D10857 /* AppDelegate.swift */; };
+		EA062D8B20F94C1D00D10857 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA062D8A20F94C1D00D10857 /* FirstViewController.swift */; };
+		EA062D8D20F94C1D00D10857 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA062D8C20F94C1D00D10857 /* SecondViewController.swift */; };
+		EA062D9020F94C1D00D10857 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA062D8E20F94C1D00D10857 /* Main.storyboard */; };
+		EA062D9220F94C1D00D10857 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA062D9120F94C1D00D10857 /* Assets.xcassets */; };
+		EA062D9520F94C1D00D10857 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA062D9320F94C1D00D10857 /* LaunchScreen.storyboard */; };
+		EA062DA020F94C1E00D10857 /* CRForumTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA062D9F20F94C1E00D10857 /* CRForumTests.swift */; };
+		EA062DAB20F94C1E00D10857 /* CRForumUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA062DAA20F94C1E00D10857 /* CRForumUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		EA062D9C20F94C1E00D10857 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EA062D7D20F94C1D00D10857 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EA062D8420F94C1D00D10857;
+			remoteInfo = CRForum;
+		};
+		EA062DA720F94C1E00D10857 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EA062D7D20F94C1D00D10857 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EA062D8420F94C1D00D10857;
+			remoteInfo = CRForum;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		EA062D8520F94C1D00D10857 /* CRForum.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CRForum.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA062D8820F94C1D00D10857 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		EA062D8A20F94C1D00D10857 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
+		EA062D8C20F94C1D00D10857 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		EA062D8F20F94C1D00D10857 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		EA062D9120F94C1D00D10857 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		EA062D9420F94C1D00D10857 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		EA062D9620F94C1D00D10857 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EA062D9B20F94C1E00D10857 /* CRForumTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CRForumTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA062D9F20F94C1E00D10857 /* CRForumTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CRForumTests.swift; sourceTree = "<group>"; };
+		EA062DA120F94C1E00D10857 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EA062DA620F94C1E00D10857 /* CRForumUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CRForumUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA062DAA20F94C1E00D10857 /* CRForumUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CRForumUITests.swift; sourceTree = "<group>"; };
+		EA062DAC20F94C1E00D10857 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EA062D8220F94C1D00D10857 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA062D9820F94C1E00D10857 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA062DA320F94C1E00D10857 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		EA062D7C20F94C1D00D10857 = {
+			isa = PBXGroup;
+			children = (
+				EA062D8720F94C1D00D10857 /* CRForum */,
+				EA062D9E20F94C1E00D10857 /* CRForumTests */,
+				EA062DA920F94C1E00D10857 /* CRForumUITests */,
+				EA062D8620F94C1D00D10857 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EA062D8620F94C1D00D10857 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EA062D8520F94C1D00D10857 /* CRForum.app */,
+				EA062D9B20F94C1E00D10857 /* CRForumTests.xctest */,
+				EA062DA620F94C1E00D10857 /* CRForumUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EA062D8720F94C1D00D10857 /* CRForum */ = {
+			isa = PBXGroup;
+			children = (
+				EA062D8820F94C1D00D10857 /* AppDelegate.swift */,
+				EA062D8A20F94C1D00D10857 /* FirstViewController.swift */,
+				EA062D8C20F94C1D00D10857 /* SecondViewController.swift */,
+				EA062D8E20F94C1D00D10857 /* Main.storyboard */,
+				EA062D9120F94C1D00D10857 /* Assets.xcassets */,
+				EA062D9320F94C1D00D10857 /* LaunchScreen.storyboard */,
+				EA062D9620F94C1D00D10857 /* Info.plist */,
+			);
+			path = CRForum;
+			sourceTree = "<group>";
+		};
+		EA062D9E20F94C1E00D10857 /* CRForumTests */ = {
+			isa = PBXGroup;
+			children = (
+				EA062D9F20F94C1E00D10857 /* CRForumTests.swift */,
+				EA062DA120F94C1E00D10857 /* Info.plist */,
+			);
+			path = CRForumTests;
+			sourceTree = "<group>";
+		};
+		EA062DA920F94C1E00D10857 /* CRForumUITests */ = {
+			isa = PBXGroup;
+			children = (
+				EA062DAA20F94C1E00D10857 /* CRForumUITests.swift */,
+				EA062DAC20F94C1E00D10857 /* Info.plist */,
+			);
+			path = CRForumUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EA062D8420F94C1D00D10857 /* CRForum */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EA062DAF20F94C1E00D10857 /* Build configuration list for PBXNativeTarget "CRForum" */;
+			buildPhases = (
+				EA062D8120F94C1D00D10857 /* Sources */,
+				EA062D8220F94C1D00D10857 /* Frameworks */,
+				EA062D8320F94C1D00D10857 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CRForum;
+			productName = CRForum;
+			productReference = EA062D8520F94C1D00D10857 /* CRForum.app */;
+			productType = "com.apple.product-type.application";
+		};
+		EA062D9A20F94C1E00D10857 /* CRForumTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EA062DB220F94C1E00D10857 /* Build configuration list for PBXNativeTarget "CRForumTests" */;
+			buildPhases = (
+				EA062D9720F94C1E00D10857 /* Sources */,
+				EA062D9820F94C1E00D10857 /* Frameworks */,
+				EA062D9920F94C1E00D10857 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EA062D9D20F94C1E00D10857 /* PBXTargetDependency */,
+			);
+			name = CRForumTests;
+			productName = CRForumTests;
+			productReference = EA062D9B20F94C1E00D10857 /* CRForumTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		EA062DA520F94C1E00D10857 /* CRForumUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EA062DB520F94C1E00D10857 /* Build configuration list for PBXNativeTarget "CRForumUITests" */;
+			buildPhases = (
+				EA062DA220F94C1E00D10857 /* Sources */,
+				EA062DA320F94C1E00D10857 /* Frameworks */,
+				EA062DA420F94C1E00D10857 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EA062DA820F94C1E00D10857 /* PBXTargetDependency */,
+			);
+			name = CRForumUITests;
+			productName = CRForumUITests;
+			productReference = EA062DA620F94C1E00D10857 /* CRForumUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EA062D7D20F94C1D00D10857 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0920;
+				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = "Z Systems";
+				TargetAttributes = {
+					EA062D8420F94C1D00D10857 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+					EA062D9A20F94C1E00D10857 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = EA062D8420F94C1D00D10857;
+					};
+					EA062DA520F94C1E00D10857 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = EA062D8420F94C1D00D10857;
+					};
+				};
+			};
+			buildConfigurationList = EA062D8020F94C1D00D10857 /* Build configuration list for PBXProject "CRForum" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = EA062D7C20F94C1D00D10857;
+			productRefGroup = EA062D8620F94C1D00D10857 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EA062D8420F94C1D00D10857 /* CRForum */,
+				EA062D9A20F94C1E00D10857 /* CRForumTests */,
+				EA062DA520F94C1E00D10857 /* CRForumUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EA062D8320F94C1D00D10857 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA062D9520F94C1D00D10857 /* LaunchScreen.storyboard in Resources */,
+				EA062D9220F94C1D00D10857 /* Assets.xcassets in Resources */,
+				EA062D9020F94C1D00D10857 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA062D9920F94C1E00D10857 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA062DA420F94C1E00D10857 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EA062D8120F94C1D00D10857 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA062D8D20F94C1D00D10857 /* SecondViewController.swift in Sources */,
+				EA062D8920F94C1D00D10857 /* AppDelegate.swift in Sources */,
+				EA062D8B20F94C1D00D10857 /* FirstViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA062D9720F94C1E00D10857 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA062DA020F94C1E00D10857 /* CRForumTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA062DA220F94C1E00D10857 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA062DAB20F94C1E00D10857 /* CRForumUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EA062D9D20F94C1E00D10857 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EA062D8420F94C1D00D10857 /* CRForum */;
+			targetProxy = EA062D9C20F94C1E00D10857 /* PBXContainerItemProxy */;
+		};
+		EA062DA820F94C1E00D10857 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EA062D8420F94C1D00D10857 /* CRForum */;
+			targetProxy = EA062DA720F94C1E00D10857 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		EA062D8E20F94C1D00D10857 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EA062D8F20F94C1D00D10857 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		EA062D9320F94C1D00D10857 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EA062D9420F94C1D00D10857 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		EA062DAD20F94C1E00D10857 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		EA062DAE20F94C1E00D10857 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		EA062DB020F94C1E00D10857 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2MD6QF5ZP5;
+				INFOPLIST_FILE = CRForum/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ZSYS.CRForum;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		EA062DB120F94C1E00D10857 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2MD6QF5ZP5;
+				INFOPLIST_FILE = CRForum/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ZSYS.CRForum;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		EA062DB320F94C1E00D10857 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2MD6QF5ZP5;
+				INFOPLIST_FILE = CRForumTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ZSYS.CRForumTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CRForum.app/CRForum";
+			};
+			name = Debug;
+		};
+		EA062DB420F94C1E00D10857 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2MD6QF5ZP5;
+				INFOPLIST_FILE = CRForumTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ZSYS.CRForumTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CRForum.app/CRForum";
+			};
+			name = Release;
+		};
+		EA062DB620F94C1E00D10857 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2MD6QF5ZP5;
+				INFOPLIST_FILE = CRForumUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ZSYS.CRForumUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = CRForum;
+			};
+			name = Debug;
+		};
+		EA062DB720F94C1E00D10857 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2MD6QF5ZP5;
+				INFOPLIST_FILE = CRForumUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ZSYS.CRForumUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = CRForum;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EA062D8020F94C1D00D10857 /* Build configuration list for PBXProject "CRForum" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA062DAD20F94C1E00D10857 /* Debug */,
+				EA062DAE20F94C1E00D10857 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EA062DAF20F94C1E00D10857 /* Build configuration list for PBXNativeTarget "CRForum" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA062DB020F94C1E00D10857 /* Debug */,
+				EA062DB120F94C1E00D10857 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EA062DB220F94C1E00D10857 /* Build configuration list for PBXNativeTarget "CRForumTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA062DB320F94C1E00D10857 /* Debug */,
+				EA062DB420F94C1E00D10857 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EA062DB520F94C1E00D10857 /* Build configuration list for PBXNativeTarget "CRForumUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA062DB620F94C1E00D10857 /* Debug */,
+				EA062DB720F94C1E00D10857 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EA062D7D20F94C1D00D10857 /* Project object */;
+}
