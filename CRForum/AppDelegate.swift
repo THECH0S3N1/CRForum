@@ -7,15 +7,34 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAuth
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        Thread.sleep(forTimeInterval: 2.0)
+        FirebaseApp.configure()
+        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+        let login = storyboard.instantiateViewController(withIdentifier: "startLogin")
+        let signup = storyboard.instantiateViewController(withIdentifier: "startSignUp")
+        
+        let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
+        if launchedBefore && Auth.auth().currentUser?.displayName != nil {
+            print("Not first launch.")
+            self.window?.rootViewController = login
+            
+        } else {
+            print("First launch, setting UserDefault.")
+            UserDefaults.standard.set(true, forKey: "launchedBefore")
+            self.window?.rootViewController = signup
+            
+        }
         return true
     }
 
