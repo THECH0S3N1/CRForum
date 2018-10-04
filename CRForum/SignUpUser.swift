@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 import Firebase
 import FirebaseDatabase
 import SwiftKeychainWrapper
@@ -49,6 +50,8 @@ class SignUpUser: UIViewController, UIImagePickerControllerDelegate, UINavigatio
     var dataFile = ""
     let fileName = "dataFile.txt"
     let docURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
     
     //close Keyboard when touching the area outside of the keyboard
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -95,8 +98,25 @@ class SignUpUser: UIViewController, UIImagePickerControllerDelegate, UINavigatio
             Auth.auth().createUser(withEmail: email, password: pass) { (user, error) in
                 if error == nil && user != nil && self.checkIfEmpty() {
                     print("User created successfully")
-                    totalBalance=totalBalance + 100
+                    let userEntity = NSEntityDescription.entity(forEntityName: "UserData", in: self.context)!
+                    let user = NSManagedObject(entity: userEntity, insertInto: self.context)
+                    // core data block save
+                    user.setValue(self.emailEntry.text, forKey: "email")
+                    user.setValue(self.passwordEntry.text, forKey: "password")
+                    user.setValue(100, forKey: "totalbalance")
+                    user.setValue(self.usernameEntry.text, forKey: "username")
+                    user.setValue(self.phonenumberEntry.text, forKey: "phonenumber")
+                    user.setValue(self.nameEntry.text, forKey: "name")
+                    do { try self.context.save()
+                    } catch {
+                        self.errorText.text = ("Error saving to local database")
+                    }
+                    
+                    //struct block
+                    totalBalance = totalBalance + 100
                     userContacts.append(User(email: self.emailEntry.text!, name: self.nameEntry.text!, password: self.passwordEntry.text!, username: self.usernameEntry.text!, phone: self.phonenumberEntry.text!, profileImage: self.profileView.image!, totalBalance : Double(totalBalance)))
+                    
+                    //save data to firebasefile for backup purposes
                     self.saveUserDataToFile()
                     self.uploadDataFile(self.fileName){ url in}
                     self.uploadImage(profile){ url in }
@@ -123,7 +143,6 @@ class SignUpUser: UIViewController, UIImagePickerControllerDelegate, UINavigatio
         }))
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(actionSheet, animated: true, completion: nil)
-        
     }
     
     //Send image function to Firebase storage
@@ -176,8 +195,10 @@ class SignUpUser: UIViewController, UIImagePickerControllerDelegate, UINavigatio
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+
         
     }
+    
     
     deinit {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)

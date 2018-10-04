@@ -25,7 +25,8 @@
 		EA10B8B021480FE900632069 /* ForumControllerMod.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA10B8AF21480FE900632069 /* ForumControllerMod.swift */; };
 		EA10B8B22148100700632069 /* VerificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA10B8B12148100700632069 /* VerificationController.swift */; };
 		EA10B8B42148101D00632069 /* VerificationControllerMod.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA10B8B32148101D00632069 /* VerificationControllerMod.swift */; };
-		EA484D1C214FE146001AC42A /* userData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EA484D1A214FE146001AC42A /* userData.xcdatamodeld */; };
+		EA1C26F5216660390077A459 /* BlockBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1C26F4216660390077A459 /* BlockBase.swift */; };
+		EA27B9BD2166847500A14DAD /* database.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EA27B9BB2166847500A14DAD /* database.xcdatamodeld */; };
 		EA6A181321013ED1002002D8 /* SignUpUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6A181221013ED1002002D8 /* SignUpUser.swift */; };
 		EA6A181521013FAF002002D8 /* SignUpModerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6A181421013FAF002002D8 /* SignUpModerator.swift */; };
 		EA6CD26A21400D8F0027684D /* saver.mov in Resources */ = {isa = PBXBuildFile; fileRef = EA6CD26921400D8F0027684D /* saver.mov */; };
@@ -82,7 +83,8 @@
 		EA10B8AF21480FE900632069 /* ForumControllerMod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForumControllerMod.swift; sourceTree = "<group>"; };
 		EA10B8B12148100700632069 /* VerificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationController.swift; sourceTree = "<group>"; };
 		EA10B8B32148101D00632069 /* VerificationControllerMod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationControllerMod.swift; sourceTree = "<group>"; };
-		EA484D1B214FE146001AC42A /* userData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = userData.xcdatamodel; sourceTree = "<group>"; };
+		EA1C26F4216660390077A459 /* BlockBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockBase.swift; sourceTree = "<group>"; };
+		EA27B9BC2166847500A14DAD /* UserModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UserModel.xcdatamodel; sourceTree = "<group>"; };
 		EA6A181221013ED1002002D8 /* SignUpUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpUser.swift; sourceTree = "<group>"; };
 		EA6A181421013FAF002002D8 /* SignUpModerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpModerator.swift; sourceTree = "<group>"; };
 		EA6CD26921400D8F0027684D /* saver.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = saver.mov; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 				EA10B8AB21480E8700632069 /* WalletControllerMod.swift */,
 				EA062D8C20F94C1D00D10857 /* GenerationController.swift */,
 				EA10B8AD21480F4800632069 /* GenerationControllerMod.swift */,
+				EA1C26F4216660390077A459 /* BlockBase.swift */,
 				EAECC20B20F95DF1000F2482 /* ForumController.swift */,
 				EA10B8AF21480FE900632069 /* ForumControllerMod.swift */,
 				EA10B8B12148100700632069 /* VerificationController.swift */,
@@ -187,7 +190,7 @@
 				EA062D9620F94C1D00D10857 /* Info.plist */,
 				EA0F91BB20FFAEA6003268BF /* GoogleService-Info.plist */,
 				EA10B8A92147E67E00632069 /* dataFile.txt */,
-				EA484D1A214FE146001AC42A /* userData.xcdatamodeld */,
+				EA27B9BB2166847500A14DAD /* database.xcdatamodeld */,
 			);
 			path = CRForum;
 			sourceTree = "<group>";
@@ -447,12 +450,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA484D1C214FE146001AC42A /* userData.xcdatamodeld in Sources */,
 				EA062D8D20F94C1D00D10857 /* GenerationController.swift in Sources */,
 				EA6A181321013ED1002002D8 /* SignUpUser.swift in Sources */,
 				EA10B8AE21480F4800632069 /* GenerationControllerMod.swift in Sources */,
 				EA062D8920F94C1D00D10857 /* AppDelegate.swift in Sources */,
 				EA6A181521013FAF002002D8 /* SignUpModerator.swift in Sources */,
+				EA27B9BD2166847500A14DAD /* database.xcdatamodeld in Sources */,
 				EA10B8B42148101D00632069 /* VerificationControllerMod.swift in Sources */,
 				EAECC20E20F95E03000F2482 /* StartScreen.swift in Sources */,
 				EA10B8B22148100700632069 /* VerificationController.swift in Sources */,
@@ -461,6 +464,7 @@
 				EABB4B8121076D9A00334B33 /* touchIDLogin.swift in Sources */,
 				EA10B8AC21480E8700632069 /* WalletControllerMod.swift in Sources */,
 				EA062D8B20F94C1D00D10857 /* WalletController.swift in Sources */,
+				EA1C26F5216660390077A459 /* BlockBase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -772,13 +776,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		EA484D1A214FE146001AC42A /* userData.xcdatamodeld */ = {
+		EA27B9BB2166847500A14DAD /* database.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				EA484D1B214FE146001AC42A /* userData.xcdatamodel */,
+				EA27B9BC2166847500A14DAD /* UserModel.xcdatamodel */,
 			);
-			currentVersion = EA484D1B214FE146001AC42A /* userData.xcdatamodel */;
-			path = userData.xcdatamodeld;
+			currentVersion = EA27B9BC2166847500A14DAD /* UserModel.xcdatamodel */;
+			path = database.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

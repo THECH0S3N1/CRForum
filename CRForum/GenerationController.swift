@@ -9,6 +9,11 @@
 import UIKit
 import Firebase
 
+
+
+
+
+
 class GenerationController: UIViewController {
 
     let shapeLayer = CAShapeLayer()

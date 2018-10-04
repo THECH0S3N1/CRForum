@@ -8,6 +8,7 @@
 
 
 import UIKit
+import CoreData
 import Firebase
 import FirebaseDatabase
 import SwiftKeychainWrapper
@@ -53,6 +54,7 @@ class SignUpModerator: UIViewController, UIImagePickerControllerDelegate, UINavi
     let fileName = "dataFile.txt"
     let modlistFile = "modList.txt"
     let docURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+    let context2 = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
@@ -121,6 +123,20 @@ class SignUpModerator: UIViewController, UIImagePickerControllerDelegate, UINavi
             Auth.auth().createUser(withEmail: email, password: pass) { (user, error) in
                 if error == nil && user != nil && self.checkIfEmpty() && self.checkIfModIDcorrect(){
                     print("User created")
+                    let userEntity = NSEntityDescription.entity(forEntityName: "UserData", in: self.context2)!
+                    let user = NSManagedObject(entity: userEntity, insertInto: self.context2)
+                    // core data block save
+                    user.setValue(self.emailEntry.text, forKey: "email")
+                    user.setValue(self.passwordEntry.text, forKey: "password")
+                    user.setValue(100, forKey: "totalbalance")
+                    user.setValue(self.usernameEntry.text, forKey: "username")
+                    user.setValue(self.phonenumberEntry.text, forKey: "phonenumber")
+                    user.setValue(self.nameEntry.text, forKey: "name")
+                    do { try self.context2.save()
+                    } catch {
+                        self.errorText.text = ("Error saving to local database")
+                    }
+                    
                     modflag = 1
                     self.saveModDataToFile()
                     self.uploadDataFile(self.fileName){ url in}
