@@ -11,7 +11,7 @@ import UIKit
 import CoreData
 import Firebase
 import FirebaseDatabase
-import SwiftKeychainWrapper
+//import SwiftKeychainWrapper
 import LocalAuthentication
 
 struct Moderator{

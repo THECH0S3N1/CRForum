@@ -15,10 +15,11 @@
         <attribute name="totalbalance" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="unconfirmedbalance" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="walletaddress" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="transaction" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BlockchainData" inverseName="transaction" inverseEntity="BlockchainData" syncable="YES"/>
     </entity>
     <elements>
-        <element name="UserData" positionX="-45" positionY="0" width="128" height="180"/>
         <element name="BlockchainData" positionX="-18" positionY="27" width="128" height="105"/>
+        <element name="UserData" positionX="-45" positionY="0" width="128" height="195"/>
     </elements>
 </model>

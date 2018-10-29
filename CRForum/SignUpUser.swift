@@ -9,8 +9,8 @@
 import UIKit
 import CoreData
 import Firebase
-import FirebaseDatabase
-import SwiftKeychainWrapper
+import FirebaseAuth
+import FirebaseStorage
 import LocalAuthentication
 
 struct User{
@@ -89,7 +89,7 @@ class SignUpUser: UIViewController, UIImagePickerControllerDelegate, UINavigatio
         dataRef(uid: uid).putFile(from: localFile, metadata: nil) { metadata, error in}
     }
     
-    //Submit button which sends user entered data to Firebase server and 
+    //Submit button which sends user entered data to Firebase server and
     @IBAction func Submit (_sender: AnyObject){
         
         guard let usrnm = usernameEntry.text else {return}
@@ -100,6 +100,8 @@ class SignUpUser: UIViewController, UIImagePickerControllerDelegate, UINavigatio
                     print("User created successfully")
                     let userEntity = NSEntityDescription.entity(forEntityName: "UserData", in: self.context)!
                     let user = NSManagedObject(entity: userEntity, insertInto: self.context)
+                    let address = self.getWalletAddress()
+                    print(address)
                     // core data block save
                     user.setValue(self.emailEntry.text, forKey: "email")
                     user.setValue(self.passwordEntry.text, forKey: "password")
@@ -107,6 +109,8 @@ class SignUpUser: UIViewController, UIImagePickerControllerDelegate, UINavigatio
                     user.setValue(self.usernameEntry.text, forKey: "username")
                     user.setValue(self.phonenumberEntry.text, forKey: "phonenumber")
                     user.setValue(self.nameEntry.text, forKey: "name")
+                    user.setValue(address, forKey: "walletaddress")
+                    
                     do { try self.context.save()
                     } catch {
                         self.errorText.text = ("Error saving to local database")
@@ -133,10 +137,20 @@ class SignUpUser: UIViewController, UIImagePickerControllerDelegate, UINavigatio
         }
     }
     
+    
+    func getWalletAddress()->String{
+        var address = ""
+        for _ in 0..<34{
+            let r = Int(arc4random_uniform(UInt32(hashBase.count)))
+            address += String(hashBase[hashBase.index(hashBase.startIndex, offsetBy: r)])
+        }
+        return address
+    }
+    
     //Handling image loading from the camera roll
     @IBAction func loadImage(_ sender: Any) {
         let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self 
+        imagePicker.delegate = self
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: "Profile photo", style: .default, handler: {(action:UIAlertAction) in imagePicker.sourceType = .camera
             self.present(imagePicker, animated: true, completion: nil)
@@ -157,13 +171,13 @@ class SignUpUser: UIViewController, UIImagePickerControllerDelegate, UINavigatio
                     guard url != nil  else {return}
                 }
             }
-        } 
+        }
     }
     
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-            let profileImg = info[UIImagePickerControllerOriginalImage] as! UIImage
-            profileView.image = profileImg
+        let profileImg = info[UIImagePickerControllerOriginalImage] as! UIImage
+        profileView.image = profileImg
         picker.dismiss(animated: true, completion: nil)
         
     }
@@ -195,7 +209,7 @@ class SignUpUser: UIViewController, UIImagePickerControllerDelegate, UINavigatio
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
-
+        
         
     }
     
@@ -212,4 +226,3 @@ class SignUpUser: UIViewController, UIImagePickerControllerDelegate, UINavigatio
     
     
 }
-
