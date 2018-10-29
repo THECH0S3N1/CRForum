@@ -8,7 +8,7 @@
 
 import UIKit
 import Firebase
-
+import CoreData
 
 
 
@@ -21,11 +21,32 @@ class GenerationController: UIViewController {
     
     @IBOutlet weak var generateButton: UIButton!
     
-    
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+
+
+
     @IBAction func generateButton(_ sender: Any) {
+        
         generateButton.isHidden = true
         animateProgress()
-        totalBalance = totalBalance + 1
+        
+        let userEntity = NSEntityDescription.entity(forEntityName: "UserData", in: self.context)!
+        let user = NSManagedObject(entity: userEntity, insertInto: self.context)
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "UserData")
+        var totalBalanceLocal = 0.0
+        request.returnsObjectsAsFaults = false
+        do {
+            let result = try context.fetch(request)
+            for data in result as! [NSManagedObject] {
+                totalBalanceLocal = data.value(forKey: "totalbalance") as! Double
+                totalBalanceLocal = totalBalanceLocal + 1
+                user.setValue(totalBalanceLocal, forKey: "totalbalance")
+            }
+        } catch {
+            print("Loading data from storage failed")
+        }
+        
+        
         
     }
     

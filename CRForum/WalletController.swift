@@ -8,6 +8,7 @@
 
 import UIKit
 import LocalAuthentication
+import CoreData
 import Firebase
 
 class WalletController: UIViewController {
@@ -26,6 +27,9 @@ class WalletController: UIViewController {
         
     }
     
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+    
     @IBAction func sendCryptoButton(_ sender: Any) {
         self.performSegue(withIdentifier: "sendCrypto", sender: self)
         
@@ -35,21 +39,23 @@ class WalletController: UIViewController {
     @IBAction func logOutButton(_ sender: Any) {
         try! Auth.auth().signOut()
         self.performSegue(withIdentifier: "toScan", sender: self)
+        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //let appDelegate = UIApplication.shared.delegate as! AppDelegate
-
-        //let context = appDelegate.persistentContainer.viewContext
-        //let entity = NSEntityDescription.entity(forEntityName: "Users", in: context)
-        //let newUser = NSManagedObject(entity: entity!, insertInto: context)
-        
         activity.isHidden = true
-        //userContacts[1].totalBalance = totalBalance
-        //currentBalanceLabel.text = String(format:"%.2f", totalBalance)
-        //print(totalBalance)
-        
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "UserData")
+        request.returnsObjectsAsFaults = false
+        do {
+            let result = try context.fetch(request)
+            for data in result as! [NSManagedObject] {
+                currentBalanceLabel.text = data.value(forKey: "totalbalance") as? String
+            }
+        } catch {
+            print("Loading data from storage failed")
+        }
+    
         
         
     }

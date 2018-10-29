@@ -72,9 +72,6 @@ class touchIDLogin: UIViewController {
                     }else{
                         self.performSegue(withIdentifier: "loginUser", sender: self)
                     }
-                    
-                
-                    
                 }
             })
         }

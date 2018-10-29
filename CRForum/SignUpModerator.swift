@@ -11,7 +11,6 @@ import UIKit
 import CoreData
 import Firebase
 import FirebaseDatabase
-//import SwiftKeychainWrapper
 import LocalAuthentication
 
 struct Moderator{
@@ -125,13 +124,17 @@ class SignUpModerator: UIViewController, UIImagePickerControllerDelegate, UINavi
                     print("User created")
                     let userEntity = NSEntityDescription.entity(forEntityName: "UserData", in: self.context2)!
                     let user = NSManagedObject(entity: userEntity, insertInto: self.context2)
+                    let address = self.getWalletAddress()
+                    
                     // core data block save
+                    
                     user.setValue(self.emailEntry.text, forKey: "email")
                     user.setValue(self.passwordEntry.text, forKey: "password")
                     user.setValue(100, forKey: "totalbalance")
                     user.setValue(self.usernameEntry.text, forKey: "username")
                     user.setValue(self.phonenumberEntry.text, forKey: "phonenumber")
                     user.setValue(self.nameEntry.text, forKey: "name")
+                    user.setValue(address, forKey: "walletaddress")
                     do { try self.context2.save()
                     } catch {
                         self.errorText.text = ("Error saving to local database")
@@ -151,6 +154,16 @@ class SignUpModerator: UIViewController, UIImagePickerControllerDelegate, UINavi
                 }
             }
         }
+    }
+    
+    
+    func getWalletAddress()->String{
+        var address = ""
+        for _ in 0..<34{
+            let r = Int(arc4random_uniform(UInt32(hashBase.count)))
+            address += String(hashBase[hashBase.index(hashBase.startIndex, offsetBy: r)])
+        }
+        return address
     }
     
     

@@ -53,6 +53,7 @@ class SignUpUser: UIViewController, UIImagePickerControllerDelegate, UINavigatio
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     
+    
     //close Keyboard when touching the area outside of the keyboard
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
@@ -100,9 +101,12 @@ class SignUpUser: UIViewController, UIImagePickerControllerDelegate, UINavigatio
                     print("User created successfully")
                     let userEntity = NSEntityDescription.entity(forEntityName: "UserData", in: self.context)!
                     let user = NSManagedObject(entity: userEntity, insertInto: self.context)
+                    
                     let address = self.getWalletAddress()
                     print(address)
+                    
                     // core data block save
+                    
                     user.setValue(self.emailEntry.text, forKey: "email")
                     user.setValue(self.passwordEntry.text, forKey: "password")
                     user.setValue(100, forKey: "totalbalance")
@@ -117,10 +121,12 @@ class SignUpUser: UIViewController, UIImagePickerControllerDelegate, UINavigatio
                     }
                     
                     //struct block
+                    
                     totalBalance = totalBalance + 100
                     userContacts.append(User(email: self.emailEntry.text!, name: self.nameEntry.text!, password: self.passwordEntry.text!, username: self.usernameEntry.text!, phone: self.phonenumberEntry.text!, profileImage: self.profileView.image!, totalBalance : Double(totalBalance)))
                     
                     //save data to firebasefile for backup purposes
+                    
                     self.saveUserDataToFile()
                     self.uploadDataFile(self.fileName){ url in}
                     self.uploadImage(profile){ url in }
@@ -203,14 +209,11 @@ class SignUpUser: UIViewController, UIImagePickerControllerDelegate, UINavigatio
         }
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
-        
-        
     }
     
     
