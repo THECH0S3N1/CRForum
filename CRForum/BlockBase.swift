@@ -14,7 +14,7 @@ import CoreData
 //chars to choose the hash elements
 var hashBase = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMOPQRSTUVWXYZ0123456789"
 
-//data to be used from the blockchainData.xcdatamodeld
+//data to be used from the coredata
 //segment describing the blocks of the blockchain, including the hash function for next blocks.
 //for simplicity, only 16 character hashes will be used.
 
@@ -38,7 +38,13 @@ class Blocks{
 class BlockChain{
     
     var blockChain = [Blocks]()
+    var blockDataFile = ""
+    let fileName = "blockDataFile.txt"
+    
+    
+    
     //load data from the database and store it in a string to pass to the block data
+    
     func fetchData()->String{
         var userData = String()
         do {
@@ -48,15 +54,23 @@ class BlockChain{
             for data in result as! [NSManagedObject] {
                 userData.append((data.value(forKey: "amount") as! String))
                 userData.append((data.value(forKey: "/") as! String))
-                userData.append((data.value(forKey: "fromusername") as! String))
+                userData.append((data.value(forKey: "fromwallet") as! String))
                 userData.append((data.value(forKey: "/") as! String))
-                userData.append((data.value(forKey: "tousername") as! String))
+                userData.append((data.value(forKey: "towallet") as! String))
+                userData.append((data.value(forKey: "/") as! String))
+                userData.append((data.value(forKey: "hashh") as! String))
+                userData.append((data.value(forKey: "/") as! String))
+                userData.append((data.value(forKey: "prevhash") as! String))
+                userData.append((data.value(forKey: "/") as! String))
+                userData.append((data.value(forKey: "timestamp") as! String))
                 userData.append((data.value(forKey: "/") as! String))
             }
         } catch {}
         return userData
     }
     
+    
+    //this function will only be performed by the first user, the rest will be added after the merkleroot
     func createMerkleRoot(){
         let merkleRoot = Blocks()
         merkleRoot.hash = merkleRoot.generateNewHash()
@@ -66,7 +80,7 @@ class BlockChain{
         blockChain.append(merkleRoot)
     }
     
-    func createBlock(){
+    func createNewBlock(){
         let newBlock = Blocks()
         newBlock.hash = newBlock.generateNewHash()
         newBlock.userData = fetchData()
@@ -75,5 +89,17 @@ class BlockChain{
         blockChain.append(newBlock)
     }
     
-
+    //saving currently made block to Firebase's text file blockDataFile
+    
+    func saveBlockDataToFile(){
+        
+        
+        
+        
+        
+    }
+    
+    
+    
+    
 }

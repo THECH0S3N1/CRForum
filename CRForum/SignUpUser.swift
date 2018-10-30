@@ -74,6 +74,7 @@ class SignUpUser: UIViewController, UIImagePickerControllerDelegate, UINavigatio
         dataFile.append(usernameEntry.text! + " ")
         dataFile.append(passwordEntry.text! + " ")
         dataFile.append(phonenumberEntry.text! + " ")
+        dataFile.append(String(100.00))
         let fileURL = docURL.appendingPathComponent(fileName).appendingPathExtension("txt")
         do {
             try dataFile.write(to: fileURL, atomically: false, encoding: .utf8)

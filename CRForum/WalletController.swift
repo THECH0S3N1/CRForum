@@ -22,12 +22,31 @@ class WalletController: UIViewController {
     
     
     @IBAction func updateWalletButton(_ sender: Any) {
+        activity.isHidden = false
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "UserData")
+        request.returnsObjectsAsFaults = false
+        do {
+            let result = try context.fetch(request)
+            for data in result as! [NSManagedObject] {
+                print(data.value(forKey: "totalbalance") as! Double)
+                currentBalanceLabel.text = String(data.value(forKey: "totalbalance") as! Double)
+            }
+        } catch {
+            print("Loading data from storage failed")
+        }
+    
+        
+ 
+        
+        
         
         
         
     }
     
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+    
     
     
     @IBAction func sendCryptoButton(_ sender: Any) {
@@ -45,12 +64,15 @@ class WalletController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         activity.isHidden = true
+        
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "UserData")
         request.returnsObjectsAsFaults = false
         do {
             let result = try context.fetch(request)
             for data in result as! [NSManagedObject] {
-                currentBalanceLabel.text = data.value(forKey: "totalbalance") as? String
+                print(data.value(forKey: "totalbalance") as! Double)
+                currentBalanceLabel.text = String(data.value(forKey: "totalbalance") as! Double)
             }
         } catch {
             print("Loading data from storage failed")

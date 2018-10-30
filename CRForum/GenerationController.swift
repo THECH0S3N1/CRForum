@@ -10,10 +10,6 @@ import UIKit
 import Firebase
 import CoreData
 
-
-
-
-
 class GenerationController: UIViewController {
 
     let shapeLayer = CAShapeLayer()
@@ -21,35 +17,43 @@ class GenerationController: UIViewController {
     
     @IBOutlet weak var generateButton: UIButton!
     
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-
-
-
-    @IBAction func generateButton(_ sender: Any) {
+    
+    @IBAction func generateButton(_ sender: Any){
         
         generateButton.isHidden = true
         animateProgress()
+        var totalLocalBalance = 0.0
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         
-        let userEntity = NSEntityDescription.entity(forEntityName: "UserData", in: self.context)!
-        let user = NSManagedObject(entity: userEntity, insertInto: self.context)
+        let userEntity = NSEntityDescription.entity(forEntityName: "UserData", in: context)!
+        let user = NSManagedObject(entity: userEntity, insertInto: context)
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "UserData")
-        var totalBalanceLocal = 0.0
+        
         request.returnsObjectsAsFaults = false
+        request.fetchLimit = 1
         do {
             let result = try context.fetch(request)
             for data in result as! [NSManagedObject] {
-                totalBalanceLocal = data.value(forKey: "totalbalance") as! Double
-                totalBalanceLocal = totalBalanceLocal + 1
-                user.setValue(totalBalanceLocal, forKey: "totalbalance")
+                
+                totalLocalBalance = data.value(forKey: "totalbalance") as! Double
+                context.delete(data)
+                do { try context.save()
+                } catch {
+                    print("Error saving to local database")
+                }
+                
             }
+                
         } catch {
             print("Loading data from storage failed")
         }
         
-        
-        
+        user.setValue(totalLocalBalance+1, forKey: "totalbalance")
+        do { try context.save()
+        } catch {
+            print("Error saving to local database")
+        }
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,7 +74,7 @@ class GenerationController: UIViewController {
             
         })
         anime.toValue = 1
-        anime.duration = 10
+        anime.duration = 1
         anime.fillMode = kCAFillModeForwards
         anime.isRemovedOnCompletion = false
         shapeLayer.add(anime, forKey: "bas")
