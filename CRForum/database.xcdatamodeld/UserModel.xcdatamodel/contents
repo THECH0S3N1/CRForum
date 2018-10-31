@@ -9,6 +9,11 @@
         <attribute name="towallet" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="transaction" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserData" inverseName="transaction" inverseEntity="UserData" syncable="YES"/>
     </entity>
+    <entity name="TransactionData" representedClassName="TransactionData" syncable="YES" codeGenerationType="class">
+        <attribute name="amount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="transactiondescription" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="UserData" representedClassName="UserData" syncable="YES" codeGenerationType="class">
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="modid" optional="YES" attributeType="String" syncable="YES"/>
@@ -24,5 +29,6 @@
     <elements>
         <element name="BlockchainData" positionX="-18" positionY="27" width="128" height="30"/>
         <element name="UserData" positionX="-45" positionY="0" width="128" height="195"/>
+        <element name="TransactionData" positionX="-27" positionY="81" width="128" height="90"/>
     </elements>
 </model>

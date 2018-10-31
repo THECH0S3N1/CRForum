@@ -28,6 +28,11 @@ class GenerationController: UIViewController {
         let userEntity = NSEntityDescription.entity(forEntityName: "UserData", in: context)!
         let user = NSManagedObject(entity: userEntity, insertInto: context)
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "UserData")
+        let transactionEntity = NSEntityDescription.entity(forEntityName: "TransactionData", in: context)!
+        let transaction = NSManagedObject(entity: transactionEntity, insertInto: context)
+        let timestamp = NSDate().timeIntervalSince1970
+        let myTimeInterval = TimeInterval(timestamp)
+        
         
         request.returnsObjectsAsFaults = false
         request.fetchLimit = 1
@@ -49,6 +54,10 @@ class GenerationController: UIViewController {
         }
         
         user.setValue(totalLocalBalance+1, forKey: "totalbalance")
+        transaction.setValue("Generated Currency", forKey: "transactiondescription")
+        transaction.setValue(1.00, forKey: "amount")
+        transaction.setValue(NSDate(timeIntervalSince1970: TimeInterval(myTimeInterval)), forKey: "timestamp")
+        
         do { try context.save()
         } catch {
             print("Error saving to local database")
@@ -74,7 +83,7 @@ class GenerationController: UIViewController {
             
         })
         anime.toValue = 1
-        anime.duration = 1
+        anime.duration = 5
         anime.fillMode = kCAFillModeForwards
         anime.isRemovedOnCompletion = false
         shapeLayer.add(anime, forKey: "bas")
@@ -86,7 +95,7 @@ class GenerationController: UIViewController {
     func progressBar(){
         let center = view.center
         let colorScheme = UIColor(red: 89/255, green: 34/255, blue: 185/255, alpha: 1)
-        let circularPath = UIBezierPath(arcCenter: center, radius: 100, startAngle: (-CGFloat.pi/2), endAngle: (2*CGFloat.pi), clockwise: true)
+        let circularPath = UIBezierPath(arcCenter: center, radius: 100, startAngle: (-CGFloat.pi/2), endAngle: (3*CGFloat.pi/2), clockwise: true)
         trackLayer.path = circularPath.cgPath
         trackLayer.strokeColor = UIColor.white.cgColor
         trackLayer.lineWidth = 10
@@ -94,7 +103,7 @@ class GenerationController: UIViewController {
         trackLayer.lineCap = kCALineCapRound
         shapeLayer.path = circularPath.cgPath
         shapeLayer.strokeColor = colorScheme.cgColor
-        shapeLayer.lineWidth = 10
+        shapeLayer.lineWidth = 11
         shapeLayer.fillColor = UIColor.clear.cgColor
         shapeLayer.lineCap = kCALineCapRound
         shapeLayer.strokeEnd = 0

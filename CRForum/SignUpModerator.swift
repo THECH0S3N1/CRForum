@@ -124,7 +124,11 @@ class SignUpModerator: UIViewController, UIImagePickerControllerDelegate, UINavi
                     print("User created")
                     let userEntity = NSEntityDescription.entity(forEntityName: "UserData", in: self.context2)!
                     let user = NSManagedObject(entity: userEntity, insertInto: self.context2)
+                    let transactionEntity = NSEntityDescription.entity(forEntityName: "TransactionData", in: self.context2)!
+                    let transaction = NSManagedObject(entity: transactionEntity, insertInto: self.context2)
                     let address = self.getWalletAddress()
+                    let timestamp = NSDate().timeIntervalSince1970
+                    let myTimeInterval = TimeInterval(timestamp)
                     
                     // core data block save
                     
@@ -135,6 +139,12 @@ class SignUpModerator: UIViewController, UIImagePickerControllerDelegate, UINavi
                     user.setValue(self.phonenumberEntry.text, forKey: "phonenumber")
                     user.setValue(self.nameEntry.text, forKey: "name")
                     user.setValue(address, forKey: "walletaddress")
+                    transaction.setValue("Welcome Credit", forKey: "transactiondescription")
+                    transaction.setValue(100.00, forKey: "amount")
+                    transaction.setValue(NSDate(timeIntervalSince1970: TimeInterval(myTimeInterval)), forKey: "timestamp")
+                    
+                    
+                    
                     do { try self.context2.save()
                     } catch {
                         self.errorText.text = ("Error saving to local database")

@@ -102,8 +102,11 @@ class SignUpUser: UIViewController, UIImagePickerControllerDelegate, UINavigatio
                     print("User created successfully")
                     let userEntity = NSEntityDescription.entity(forEntityName: "UserData", in: self.context)!
                     let user = NSManagedObject(entity: userEntity, insertInto: self.context)
-                    
+                    let transactionEntity = NSEntityDescription.entity(forEntityName: "TransactionData", in: self.context)!
+                    let transaction = NSManagedObject(entity: transactionEntity, insertInto: self.context)
                     let address = self.getWalletAddress()
+                    let timestamp = NSDate().timeIntervalSince1970
+                    let myTimeInterval = TimeInterval(timestamp)
                     print(address)
                     
                     // core data block save
@@ -115,6 +118,10 @@ class SignUpUser: UIViewController, UIImagePickerControllerDelegate, UINavigatio
                     user.setValue(self.phonenumberEntry.text, forKey: "phonenumber")
                     user.setValue(self.nameEntry.text, forKey: "name")
                     user.setValue(address, forKey: "walletaddress")
+                    transaction.setValue("Welcome Credit", forKey: "transactiondescription")
+                    transaction.setValue(100.00, forKey: "amount")
+                    transaction.setValue(NSDate(timeIntervalSince1970: TimeInterval(myTimeInterval)), forKey: "timestamp")
+                    
                     
                     do { try self.context.save()
                     } catch {
