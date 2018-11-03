@@ -14,54 +14,65 @@ class GenerationController: UIViewController {
 
     let shapeLayer = CAShapeLayer()
     let trackLayer = CAShapeLayer()
+    var totalLocalBalance = 0.0
+    @IBOutlet weak var tabBar: UITabBarItem!
+    
+    
+    @IBOutlet var generateView: UIView!
+    
     
     @IBOutlet weak var generateButton: UIButton!
     
     
-    @IBAction func generateButton(_ sender: Any){
-        
-        generateButton.isHidden = true
-        animateProgress()
-        var totalLocalBalance = 0.0
+    
+    func removePrevValue(){
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        
-        let userEntity = NSEntityDescription.entity(forEntityName: "UserData", in: context)!
-        let user = NSManagedObject(entity: userEntity, insertInto: context)
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "UserData")
-        let transactionEntity = NSEntityDescription.entity(forEntityName: "TransactionData", in: context)!
-        let transaction = NSManagedObject(entity: transactionEntity, insertInto: context)
-        let timestamp = NSDate().timeIntervalSince1970
-        let myTimeInterval = TimeInterval(timestamp)
-        
-        
         request.returnsObjectsAsFaults = false
         request.fetchLimit = 1
         do {
             let result = try context.fetch(request)
             for data in result as! [NSManagedObject] {
-                
                 totalLocalBalance = data.value(forKey: "totalbalance") as! Double
                 context.delete(data)
-                do { try context.save()
-                } catch {
-                    print("Error saving to local database")
-                }
-                
             }
-                
         } catch {
             print("Loading data from storage failed")
         }
-        
-        user.setValue(totalLocalBalance+1, forKey: "totalbalance")
-        transaction.setValue("Generated Currency", forKey: "transactiondescription")
-        transaction.setValue(1.00, forKey: "amount")
-        transaction.setValue(NSDate(timeIntervalSince1970: TimeInterval(myTimeInterval)), forKey: "timestamp")
-        
         do { try context.save()
         } catch {
             print("Error saving to local database")
         }
+    }
+    
+    func saveNewValues(){
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        let userEntity = NSEntityDescription.entity(forEntityName: "UserData", in: context)!
+        let user = NSManagedObject(entity: userEntity, insertInto: context)
+        let transactionEntity = NSEntityDescription.entity(forEntityName: "TransactionData", in: context)!
+        let transaction = NSManagedObject(entity: transactionEntity, insertInto: context)
+        let timestamp = NSDate().timeIntervalSince1970
+        let myTimeInterval = TimeInterval(timestamp)
+        user.setValue(totalLocalBalance+1, forKey: "totalbalance")
+        transaction.setValue("Generated Currency", forKey: "transactiondescription")
+        transaction.setValue(1.00, forKey: "amount")
+        transaction.setValue(NSDate(timeIntervalSince1970: TimeInterval(myTimeInterval)), forKey: "timestamp")
+        do {
+            try context.save()
+            generateView.isUserInteractionEnabled = true
+        } catch {
+            print("Error saving to local database")
+        }
+        
+    }
+    
+    
+    @IBAction func generateButton(_ sender: Any){
+        generateView.isUserInteractionEnabled = false
+        generateButton.isHidden = true
+        animateProgress()
+        removePrevValue()
+        saveNewValues()
     }
     
     override func viewDidLoad() {
@@ -70,6 +81,7 @@ class GenerationController: UIViewController {
     }
 
     func animateProgress(){
+        
         progressBar()
         let anime = CABasicAnimation(keyPath: "strokeEnd")
         CATransaction.begin()
@@ -77,10 +89,6 @@ class GenerationController: UIViewController {
             self.shapeLayer.removeFromSuperlayer()
             self.trackLayer.removeFromSuperlayer()
             self.generateButton.isHidden = false
-            
-            
-            
-            
         })
         anime.toValue = 1
         anime.duration = 5

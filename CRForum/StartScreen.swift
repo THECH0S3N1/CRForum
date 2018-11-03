@@ -101,6 +101,10 @@ class StartViewController: UIViewController {
                 if error == nil && user != nil {
                     badloginFlag = 0
                     self.performSegue(withIdentifier: "proceedWithLogin", sender: self)
+                    
+                    
+                    
+                    
                 } else {
                     print("Error logging in: \(error!.localizedDescription)")
                     self.errorLabel.text = ("Error logging in: \(error!.localizedDescription)")

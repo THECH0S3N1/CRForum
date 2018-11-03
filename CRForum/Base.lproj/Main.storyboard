@@ -227,6 +227,8 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="generateButton" destination="oWD-er-Wda" id="MRX-rQ-d08"/>
+                        <outlet property="generateView" destination="QS5-Rx-YEW" id="QHz-qk-MEN"/>
+                        <outlet property="tabBar" destination="cPa-gy-q4n" id="iku-7h-Lkr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
@@ -269,6 +271,16 @@
                                     <constraint firstAttribute="height" constant="562" id="Uqc-A2-enY"/>
                                 </constraints>
                                 <color key="separatorColor" red="0.34901960780000002" green="0.1333333333" blue="0.72549019609999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="postCell" id="Ree-Xx-vgT">
+                                        <rect key="frame" x="0.0" y="28" width="400" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ree-Xx-vgT" id="ana-tc-OAs">
+                                            <rect key="frame" x="0.0" y="0.0" width="400" height="43.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Logged in as: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wqg-k1-ywO">
                                 <rect key="frame" x="154" y="39" width="240" height="16"/>
@@ -309,6 +321,13 @@
                     <tabBarItem key="tabBarItem" title="CRForum" image="icons8-discussion-forum-30" selectedImage="icons8-discussion-forum-30" id="khF-Js-3Ue">
                         <color key="badgeColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
                     </tabBarItem>
+                    <connections>
+                        <outlet property="availableForumCounterLabel" destination="tSY-Uw-LCZ" id="ZXN-5R-d30"/>
+                        <outlet property="forumCounterLabel" destination="tLg-8s-0VH" id="kpj-Vd-Gm0"/>
+                        <outlet property="forumTableView" destination="vxw-sG-nsO" id="DzC-eE-rxY"/>
+                        <outlet property="loggedInLabel" destination="wqg-k1-ywO" id="Pka-LE-rwR"/>
+                        <outlet property="profileImageView" destination="9xT-SZ-yoZ" id="0Kr-wb-X8a"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OpK-mf-bcq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -325,10 +344,28 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background2" translatesAutoresizingMaskIntoConstraints="NO" id="rCt-E5-Sqm">
                                 <rect key="frame" x="0.0" y="20" width="414" height="667"/>
                             </imageView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="r9L-e6-clD">
+                                <rect key="frame" x="13" y="33" width="388" height="641"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="verificationCell" id="VoP-AR-bc7">
+                                        <rect key="frame" x="0.0" y="28" width="388" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="VoP-AR-bc7" id="5nz-sS-Pul">
+                                            <rect key="frame" x="0.0" y="0.0" width="388" height="43.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="fc7-Xf-86m" firstAttribute="bottom" secondItem="r9L-e6-clD" secondAttribute="bottom" constant="13" id="396-BF-ThI"/>
+                            <constraint firstItem="r9L-e6-clD" firstAttribute="top" secondItem="fc7-Xf-86m" secondAttribute="top" constant="13" id="HIK-du-Fs1"/>
+                            <constraint firstItem="fc7-Xf-86m" firstAttribute="trailing" secondItem="r9L-e6-clD" secondAttribute="trailing" constant="13" id="Qil-PS-KzW"/>
                             <constraint firstItem="rCt-E5-Sqm" firstAttribute="top" secondItem="fc7-Xf-86m" secondAttribute="top" id="XGc-y7-wHs"/>
+                            <constraint firstItem="r9L-e6-clD" firstAttribute="leading" secondItem="fc7-Xf-86m" secondAttribute="leading" constant="13" id="XxR-Df-OY2"/>
                             <constraint firstItem="rCt-E5-Sqm" firstAttribute="bottom" secondItem="fc7-Xf-86m" secondAttribute="bottom" id="cRJ-rE-Pn0"/>
                             <constraint firstItem="rCt-E5-Sqm" firstAttribute="leading" secondItem="fc7-Xf-86m" secondAttribute="leading" id="hDZ-a1-g5V"/>
                             <constraint firstItem="rCt-E5-Sqm" firstAttribute="trailing" secondItem="fc7-Xf-86m" secondAttribute="trailing" id="niq-Ff-FPh"/>

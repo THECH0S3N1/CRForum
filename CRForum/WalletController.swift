@@ -31,7 +31,7 @@ class WalletController: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     @IBAction func updateWalletButton(_ sender: Any) {
         readItems()
-        transactionTable.reloadData()
+        //transactionTable.reloadData()
         transactionTable.dataSource = self
         transactionTable.delegate = self
         transactionTable.register(UITableViewCell.self, forCellReuseIdentifier: "historycell")
@@ -88,7 +88,10 @@ class WalletController: UIViewController, UITableViewDelegate, UITableViewDataSo
         
     }
     
-    
+    override func viewWillDisappear(_ animated: Bool){
+        super.viewWillDisappear(true)
+        
+    }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         print("current row count ",transactionsArray.count)
@@ -99,6 +102,8 @@ class WalletController: UIViewController, UITableViewDelegate, UITableViewDataSo
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         let cell = tableView.dequeueReusableCell(withIdentifier: "historycell", for: indexPath)
         cell.textLabel?.text = transactionsArray[indexPath.row]
+        transactionTable.transform = CGAffineTransform(scaleX: 1, y: -1)
+        cell.contentView.transform = CGAffineTransform(scaleX: 1, y: -1)
         return cell
     }
     

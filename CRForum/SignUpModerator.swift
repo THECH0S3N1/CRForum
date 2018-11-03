@@ -47,7 +47,7 @@ class SignUpModerator: UIViewController, UIImagePickerControllerDelegate, UINavi
     @IBOutlet weak var moderatorID: UITextField!
     @IBOutlet weak var profileView: UIImageView!
     @IBOutlet weak var errorText: UILabel!
-    
+     var reference: DatabaseReference!
     var moderatorIDString = ""
     var dataFile = ""
     let fileName = "dataFile.txt"
@@ -118,10 +118,12 @@ class SignUpModerator: UIViewController, UIImagePickerControllerDelegate, UINavi
     @IBAction func Submit (_sender: AnyObject){
         guard let usrnm = usernameEntry.text else {return}
         guard let profile = profileView.image else {return}
+        reference = Database.database().reference(fromURL: "https://crforum-f63c5.firebaseio.com/")
         if let email = emailEntry.text, let pass = passwordEntry.text {
             Auth.auth().createUser(withEmail: email, password: pass) { (user, error) in
                 if error == nil && user != nil && self.checkIfEmpty() && self.checkIfModIDcorrect(){
                     print("User created")
+                    let data = ["name": self.nameEntry.text!, "email": self.emailEntry.text!, "username": self.usernameEntry.text!, "phone": self.phonenumberEntry.text!, "balance": totalBalance, "moderatorID": self.moderatorID.text!] as [String : Any]
                     let userEntity = NSEntityDescription.entity(forEntityName: "UserData", in: self.context2)!
                     let user = NSManagedObject(entity: userEntity, insertInto: self.context2)
                     let transactionEntity = NSEntityDescription.entity(forEntityName: "TransactionData", in: self.context2)!
@@ -129,6 +131,20 @@ class SignUpModerator: UIViewController, UIImagePickerControllerDelegate, UINavi
                     let address = self.getWalletAddress()
                     let timestamp = NSDate().timeIntervalSince1970
                     let myTimeInterval = TimeInterval(timestamp)
+                    
+                    
+                    self.reference.updateChildValues(data, withCompletionBlock: {(error, reference) in
+                        if error != nil{
+                            print(error ?? "")
+                            return
+                        }
+                        
+                        print("saved")
+                        
+                        
+                    })
+                    
+                    
                     
                     // core data block save
                     
@@ -142,6 +158,8 @@ class SignUpModerator: UIViewController, UIImagePickerControllerDelegate, UINavi
                     transaction.setValue("Welcome Credit", forKey: "transactiondescription")
                     transaction.setValue(100.00, forKey: "amount")
                     transaction.setValue(NSDate(timeIntervalSince1970: TimeInterval(myTimeInterval)), forKey: "timestamp")
+                    
+                    
                     
                     
                     

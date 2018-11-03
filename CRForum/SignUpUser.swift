@@ -9,8 +9,7 @@
 import UIKit
 import CoreData
 import Firebase
-import FirebaseAuth
-import FirebaseStorage
+
 import LocalAuthentication
 
 struct User{
@@ -33,6 +32,9 @@ struct User{
     }
 }
 
+
+
+
 var userContacts: [User] = []
 var totalBalance = 0.00
 
@@ -51,6 +53,13 @@ class SignUpUser: UIViewController, UIImagePickerControllerDelegate, UINavigatio
     let fileName = "dataFile.txt"
     let docURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var reference: DatabaseReference!
+    
+    
+  
+    
+    
+    
     
     
     
@@ -93,6 +102,9 @@ class SignUpUser: UIViewController, UIImagePickerControllerDelegate, UINavigatio
     
     //Submit button which sends user entered data to Firebase server and
     @IBAction func Submit (_sender: AnyObject){
+        reference = Database.database().reference(fromURL: "https://crforum-f63c5.firebaseio.com/")
+        
+        
         
         guard let usrnm = usernameEntry.text else {return}
         guard let profile = profileView.image else {return}
@@ -100,6 +112,7 @@ class SignUpUser: UIViewController, UIImagePickerControllerDelegate, UINavigatio
             Auth.auth().createUser(withEmail: email, password: pass) { (user, error) in
                 if error == nil && user != nil && self.checkIfEmpty() {
                     print("User created successfully")
+                    let data = ["name": self.nameEntry.text!, "email": self.emailEntry.text!, "username": self.usernameEntry.text!, "phone": self.phonenumberEntry.text!, "balance": totalBalance] as [String : Any]
                     let userEntity = NSEntityDescription.entity(forEntityName: "UserData", in: self.context)!
                     let user = NSManagedObject(entity: userEntity, insertInto: self.context)
                     let transactionEntity = NSEntityDescription.entity(forEntityName: "TransactionData", in: self.context)!
@@ -109,7 +122,18 @@ class SignUpUser: UIViewController, UIImagePickerControllerDelegate, UINavigatio
                     let myTimeInterval = TimeInterval(timestamp)
                     print(address)
                     
-                    // core data block save
+                    self.reference.updateChildValues(data, withCompletionBlock: {(error, reference) in
+                        if error != nil{
+                            print(error ?? "")
+                            return
+                        }
+                        
+                        print("saved")
+                        
+                        
+                    })
+                    
+                    // core data block saving
                     
                     user.setValue(self.emailEntry.text, forKey: "email")
                     user.setValue(self.passwordEntry.text, forKey: "password")
