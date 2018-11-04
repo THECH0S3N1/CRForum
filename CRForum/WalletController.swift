@@ -11,12 +11,15 @@ import LocalAuthentication
 import CoreData
 import Firebase
 
+
+
+
 class WalletController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     
     
     var transactionsArray = [String]()
-    
+    var baseReference: DatabaseReference!
     var stringToAdd = ""
     var index = 0
     
@@ -63,15 +66,31 @@ class WalletController: UIViewController, UITableViewDelegate, UITableViewDataSo
         
     }
     
+    func updateDatabaseValues(_ address: String,_ balance: Double){
+        baseReference = Database.database().reference(fromURL: "https://crforum-f63c5.firebaseio.com/")
+        let directRef = baseReference.child("users").child(address)
+        let data = ["balance": totalBalance] as [String : Any]
+        directRef.updateChildValues(data, withCompletionBlock: {(error, reference) in
+            if error != nil{
+                print(error ?? "")
+                return
+            }
+            print("saved")
+        })
+        
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        var address = ""
+        baseReference = Database.database().reference(fromURL: "https://crforum-f63c5.firebaseio.com/")
         activity.isHidden = true
         readItems()
         transactionTable.reloadData()
         transactionTable.dataSource = self
         transactionTable.delegate = self
         transactionTable.register(UITableViewCell.self, forCellReuseIdentifier: "historycell")
-        
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "UserData")
         request.returnsObjectsAsFaults = false
@@ -80,11 +99,14 @@ class WalletController: UIViewController, UITableViewDelegate, UITableViewDataSo
             for data in result as! [NSManagedObject] {
                 print(data.value(forKey: "totalbalance") as! Double)
                 currentBalanceLabel.text = String(data.value(forKey: "totalbalance") as! Double)
+                address = String(data.value(forKey: "walletaddress") as! String)
+                updateDatabaseValues(address, (data.value(forKey: "totalbalance") as! Double))
             }
         } catch {
             print("Loading data from storage failed")
         }
     
+        
         
     }
     

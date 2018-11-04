@@ -1083,11 +1083,31 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background2" translatesAutoresizingMaskIntoConstraints="NO" id="Dpa-tb-0nS">
                                 <rect key="frame" x="0.0" y="20" width="414" height="667"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sna-Mx-fgC">
+                                <rect key="frame" x="100" y="237" width="215" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="3oh-Hw-3x9"/>
+                                    <constraint firstAttribute="width" constant="215" id="S5r-7f-SdF"/>
+                                </constraints>
+                                <state key="normal" image="logo_p_inv"/>
+                                <connections>
+                                    <action selector="generateButton:" destination="Wll-BR-3gz" eventType="touchUpInside" id="fon-wU-NEf"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Amount that will be generated is 1.00 CRF" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KPR-YR-MBl">
+                                <rect key="frame" x="19" y="40" width="376" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Copperplate-Light" family="Copperplate" pointSize="17"/>
+                                <color key="textColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Dpa-tb-0nS" firstAttribute="top" secondItem="btb-W2-MjT" secondAttribute="top" id="47x-ue-lkz"/>
+                            <constraint firstItem="sna-Mx-fgC" firstAttribute="leading" secondItem="btb-W2-MjT" secondAttribute="leading" constant="100" id="8Tq-U5-vP9"/>
                             <constraint firstItem="Dpa-tb-0nS" firstAttribute="leading" secondItem="btb-W2-MjT" secondAttribute="leading" id="DLM-B3-V9P"/>
+                            <constraint firstItem="sna-Mx-fgC" firstAttribute="top" secondItem="btb-W2-MjT" secondAttribute="top" constant="217" id="N4W-0X-8x4"/>
                             <constraint firstItem="btb-W2-MjT" firstAttribute="bottom" secondItem="Dpa-tb-0nS" secondAttribute="bottom" id="ZKB-Vd-VsP"/>
                             <constraint firstItem="btb-W2-MjT" firstAttribute="trailing" secondItem="Dpa-tb-0nS" secondAttribute="trailing" id="mSV-3Y-uwC"/>
                         </constraints>
@@ -1097,6 +1117,11 @@
                         <color key="badgeColor" name="controlDarkShadowColor" catalog="System" colorSpace="catalog"/>
                     </tabBarItem>
                     <nil key="simulatedTopBarMetrics"/>
+                    <connections>
+                        <outlet property="generateButton" destination="sna-Mx-fgC" id="mMg-mf-P69"/>
+                        <outlet property="generateView" destination="Dpa-tb-0nS" id="bG3-nm-vks"/>
+                        <outlet property="tabBar" destination="BC3-40-DjC" id="eF0-Xk-w15"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3VO-ux-ICK" sceneMemberID="firstResponder"/>
             </objects>

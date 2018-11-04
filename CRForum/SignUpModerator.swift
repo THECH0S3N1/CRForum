@@ -47,13 +47,15 @@ class SignUpModerator: UIViewController, UIImagePickerControllerDelegate, UINavi
     @IBOutlet weak var moderatorID: UITextField!
     @IBOutlet weak var profileView: UIImageView!
     @IBOutlet weak var errorText: UILabel!
-     var reference: DatabaseReference!
+    var baseReference: DatabaseReference!
     var moderatorIDString = ""
     var dataFile = ""
     let fileName = "dataFile.txt"
     let modlistFile = "modList.txt"
     let docURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
     let context2 = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    let welcomeCredit = 100
+    
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
@@ -118,49 +120,40 @@ class SignUpModerator: UIViewController, UIImagePickerControllerDelegate, UINavi
     @IBAction func Submit (_sender: AnyObject){
         guard let usrnm = usernameEntry.text else {return}
         guard let profile = profileView.image else {return}
-        reference = Database.database().reference(fromURL: "https://crforum-f63c5.firebaseio.com/")
+        baseReference = Database.database().reference(fromURL: "https://crforum-f63c5.firebaseio.com/")
         if let email = emailEntry.text, let pass = passwordEntry.text {
             Auth.auth().createUser(withEmail: email, password: pass) { (user, error) in
                 if error == nil && user != nil && self.checkIfEmpty() && self.checkIfModIDcorrect(){
-                    print("User created")
-                    let data = ["name": self.nameEntry.text!, "email": self.emailEntry.text!, "username": self.usernameEntry.text!, "phone": self.phonenumberEntry.text!, "balance": totalBalance, "moderatorID": self.moderatorID.text!] as [String : Any]
+                    let directRef = self.baseReference.child("moderators").child(usrnm)
+                    let address = self.getWalletAddress()
+                    let data = ["name": self.nameEntry.text!, "email": self.emailEntry.text!, "username": self.usernameEntry.text!, "phone": self.phonenumberEntry.text!, "balance": self.welcomeCredit, "moderatorID": self.moderatorID.text!, "wallet": address] as [String : Any]
                     let userEntity = NSEntityDescription.entity(forEntityName: "UserData", in: self.context2)!
                     let user = NSManagedObject(entity: userEntity, insertInto: self.context2)
                     let transactionEntity = NSEntityDescription.entity(forEntityName: "TransactionData", in: self.context2)!
                     let transaction = NSManagedObject(entity: transactionEntity, insertInto: self.context2)
-                    let address = self.getWalletAddress()
                     let timestamp = NSDate().timeIntervalSince1970
                     let myTimeInterval = TimeInterval(timestamp)
                     
-                    
-                    self.reference.updateChildValues(data, withCompletionBlock: {(error, reference) in
+                    directRef.updateChildValues(data, withCompletionBlock: {(error, reference) in
                         if error != nil{
                             print(error ?? "")
                             return
                         }
-                        
                         print("saved")
-                        
-                        
                     })
-                    
-                    
                     
                     // core data block save
                     
                     user.setValue(self.emailEntry.text, forKey: "email")
                     user.setValue(self.passwordEntry.text, forKey: "password")
-                    user.setValue(100, forKey: "totalbalance")
+                    user.setValue(self.welcomeCredit, forKey: "totalbalance")
                     user.setValue(self.usernameEntry.text, forKey: "username")
                     user.setValue(self.phonenumberEntry.text, forKey: "phonenumber")
                     user.setValue(self.nameEntry.text, forKey: "name")
                     user.setValue(address, forKey: "walletaddress")
                     transaction.setValue("Welcome Credit", forKey: "transactiondescription")
-                    transaction.setValue(100.00, forKey: "amount")
+                    transaction.setValue(self.welcomeCredit, forKey: "amount")
                     transaction.setValue(NSDate(timeIntervalSince1970: TimeInterval(myTimeInterval)), forKey: "timestamp")
-                    
-                    
-                    
                     
                     
                     do { try self.context2.save()
