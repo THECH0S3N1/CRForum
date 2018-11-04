@@ -33,7 +33,9 @@ class WalletController: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     
     @IBAction func updateWalletButton(_ sender: Any) {
-        readItems()
+        self.viewDidLoad()
+        self.viewWillAppear(true)
+        /*readItems()
         //transactionTable.reloadData()
         transactionTable.dataSource = self
         transactionTable.delegate = self
@@ -50,6 +52,7 @@ class WalletController: UIViewController, UITableViewDelegate, UITableViewDataSo
         } catch {
             print("Loading data from storage failed")
         }
+ */
     }
     
     
@@ -83,7 +86,7 @@ class WalletController: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        var address = ""
+       // var address = ""
         baseReference = Database.database().reference(fromURL: "https://crforum-f63c5.firebaseio.com/")
         activity.isHidden = true
         readItems()
@@ -99,8 +102,8 @@ class WalletController: UIViewController, UITableViewDelegate, UITableViewDataSo
             for data in result as! [NSManagedObject] {
                 print(data.value(forKey: "totalbalance") as! Double)
                 currentBalanceLabel.text = String(data.value(forKey: "totalbalance") as! Double)
-                address = String(data.value(forKey: "walletaddress") as! String)
-                updateDatabaseValues(address, (data.value(forKey: "totalbalance") as! Double))
+                //address = (data.value(forKey: "walletaddress") as! String)
+                //updateDatabaseValues(address, (data.value(forKey: "totalbalance") as! Double))
             }
         } catch {
             print("Loading data from storage failed")
@@ -155,9 +158,6 @@ class WalletController: UIViewController, UITableViewDelegate, UITableViewDataSo
         }
     
     }
- 
-    
-    
 }
 
 
