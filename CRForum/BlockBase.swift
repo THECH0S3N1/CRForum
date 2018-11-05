@@ -37,6 +37,8 @@ class Blocks{
 
 class BlockChain{
     
+    
+    var baseReference: DatabaseReference!
     var blockChain = [Blocks]()
     var blockDataFile = ""
     let fileName = "blockDataFile.txt"
@@ -91,9 +93,26 @@ class BlockChain{
     
     //saving currently made block to Firebase's text file blockDataFile
     
-    func saveBlockDataToFile(){
+    func getLastHash() -> String{
         
         
+        /////////code here follows v2.7
+        
+        return ""
+    }
+    
+    func saveBlockDataToDatabase(_ amount: Double, _ destAddress: String, _ originAddress: String, _ timestamp: String, _ hash: String ){
+        let prevhash = getLastHash()
+        baseReference = Database.database().reference(fromURL: "https://crforum-f63c5.firebaseio.com/")
+        let directRef = self.baseReference.child("blockchain").child(hash)
+        let data = ["amount": amount, "toWallet": destAddress, "fromWallet": originAddress, "timestamp": timestamp, "hash": hash, "prevhash": prevhash] as [String : Any]
+        directRef.updateChildValues(data, withCompletionBlock: {(error, reference) in
+            if error != nil{
+                print(error ?? "")
+                return
+            }
+            print("Saved Blockchain Data")
+        })
         
         
         

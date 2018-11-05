@@ -33,26 +33,10 @@ class WalletController: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     
     @IBAction func updateWalletButton(_ sender: Any) {
+        transactionsArray.removeAll()
         self.viewDidLoad()
         self.viewWillAppear(true)
-        /*readItems()
-        //transactionTable.reloadData()
-        transactionTable.dataSource = self
-        transactionTable.delegate = self
-        transactionTable.register(UITableViewCell.self, forCellReuseIdentifier: "historycell")
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "UserData")
-        request.returnsObjectsAsFaults = false
-        do {
-            let result = try context.fetch(request)
-            for data in result as! [NSManagedObject] {
-                print(data.value(forKey: "totalbalance") as! Double)
-                currentBalanceLabel.text = String(data.value(forKey: "totalbalance") as! Double)
-            }
-        } catch {
-            print("Loading data from storage failed")
-        }
- */
+        
     }
     
     
@@ -72,7 +56,6 @@ class WalletController: UIViewController, UITableViewDelegate, UITableViewDataSo
     func updateDatabaseValues(_ address: String,_ balance: Double){
         baseReference = Database.database().reference(fromURL: "https://crforum-f63c5.firebaseio.com/")
         let directRef = baseReference.child("users").child(address)
-        //let data = ["balance": totalBalance] as [String : Any]
         directRef.updateChildValues(["balance": balance], withCompletionBlock: {(error, reference) in
             if error != nil{
                 print(error ?? "")
@@ -126,6 +109,7 @@ class WalletController: UIViewController, UITableViewDelegate, UITableViewDataSo
         cell.textLabel?.text = transactionsArray[indexPath.row]
         transactionTable.transform = CGAffineTransform(scaleX: 1, y: -1)
         cell.contentView.transform = CGAffineTransform(scaleX: 1, y: -1)
+        tableView.scrollToBottom()
         return cell
     }
     
@@ -163,6 +147,17 @@ extension Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = style
         return dateFormatter.string(from: self)
+    }
+}
+
+extension UITableView {
+    
+    func scrollToBottom(){
+        
+        DispatchQueue.main.async {
+            let indexPath = IndexPath(row: self.numberOfRows(inSection:  self.numberOfSections-1) - 1, section: self.numberOfSections - 1)
+            self.scrollToRow(at: indexPath, at: .bottom, animated: true)
+        }
     }
 }
 
