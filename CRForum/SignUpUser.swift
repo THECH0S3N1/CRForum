@@ -51,6 +51,7 @@ class SignUpUser: UIViewController, UIImagePickerControllerDelegate, UINavigatio
     
     var dataFile = ""
     let fileName = "dataFile.txt"
+    let welcomeCredit = 100
     let docURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var baseReference: DatabaseReference!
@@ -106,8 +107,8 @@ class SignUpUser: UIViewController, UIImagePickerControllerDelegate, UINavigatio
                 if error == nil && user != nil && self.checkIfEmpty() {
                     print("User created successfully")
                     let address = self.getWalletAddress()
-                    let directRef = self.baseReference.child("users").child(address)
-                    let data = ["name": self.nameEntry.text!, "email": self.emailEntry.text!, "username": self.usernameEntry.text!, "phone": self.phonenumberEntry.text!, "balance": totalBalance, "wallet": address] as [String : Any]
+                    let directRef = self.baseReference.child("users").child(usrnm)
+                    let data = ["name": self.nameEntry.text!, "email": self.emailEntry.text!, "username": self.usernameEntry.text!, "phone": self.phonenumberEntry.text!, "balance": self.welcomeCredit, "wallet": address] as [String : Any]
                     let userEntity = NSEntityDescription.entity(forEntityName: "UserData", in: self.context)!
                     let user = NSManagedObject(entity: userEntity, insertInto: self.context)
                     let transactionEntity = NSEntityDescription.entity(forEntityName: "TransactionData", in: self.context)!
@@ -127,13 +128,13 @@ class SignUpUser: UIViewController, UIImagePickerControllerDelegate, UINavigatio
                     
                     user.setValue(self.emailEntry.text, forKey: "email")
                     user.setValue(self.passwordEntry.text, forKey: "password")
-                    user.setValue(100, forKey: "totalbalance")
+                    user.setValue(self.welcomeCredit, forKey: "totalbalance")
                     user.setValue(self.usernameEntry.text, forKey: "username")
                     user.setValue(self.phonenumberEntry.text, forKey: "phonenumber")
                     user.setValue(self.nameEntry.text, forKey: "name")
                     user.setValue(address, forKey: "walletaddress")
                     transaction.setValue("Welcome Credit", forKey: "transactiondescription")
-                    transaction.setValue(100.00, forKey: "amount")
+                    transaction.setValue(self.welcomeCredit, forKey: "amount")
                     transaction.setValue(NSDate(timeIntervalSince1970: TimeInterval(myTimeInterval)), forKey: "timestamp")
                     
                     

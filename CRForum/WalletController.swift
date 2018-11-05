@@ -72,8 +72,8 @@ class WalletController: UIViewController, UITableViewDelegate, UITableViewDataSo
     func updateDatabaseValues(_ address: String,_ balance: Double){
         baseReference = Database.database().reference(fromURL: "https://crforum-f63c5.firebaseio.com/")
         let directRef = baseReference.child("users").child(address)
-        let data = ["balance": totalBalance] as [String : Any]
-        directRef.updateChildValues(data, withCompletionBlock: {(error, reference) in
+        //let data = ["balance": totalBalance] as [String : Any]
+        directRef.updateChildValues(["balance": balance], withCompletionBlock: {(error, reference) in
             if error != nil{
                 print(error ?? "")
                 return
@@ -86,7 +86,6 @@ class WalletController: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       // var address = ""
         baseReference = Database.database().reference(fromURL: "https://crforum-f63c5.firebaseio.com/")
         activity.isHidden = true
         readItems()
@@ -102,13 +101,11 @@ class WalletController: UIViewController, UITableViewDelegate, UITableViewDataSo
             for data in result as! [NSManagedObject] {
                 print(data.value(forKey: "totalbalance") as! Double)
                 currentBalanceLabel.text = String(data.value(forKey: "totalbalance") as! Double)
-                //address = (data.value(forKey: "walletaddress") as! String)
-                //updateDatabaseValues(address, (data.value(forKey: "totalbalance") as! Double))
+                updateDatabaseValues((Auth.auth().currentUser?.displayName)!, (data.value(forKey: "totalbalance") as! Double))
             }
         } catch {
             print("Loading data from storage failed")
         }
-    
         
         
     }
