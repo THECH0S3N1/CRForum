@@ -17,16 +17,15 @@ class ForumController: UIViewController {
     @IBOutlet weak var availableForumCounterLabel: UILabel!
     @IBOutlet weak var forumTableView: UITableView!
     
-    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         let loggedInString = "Logged in as: " + (Auth.auth().currentUser?.displayName)!
+        let forumsVisited = ""
+        let forumsAvailable = ""
         loggedInLabel.text = loggedInString
+        forumCounterLabel.text = forumsVisited
+        availableForumCounterLabel.text = forumsAvailable
         downloadProfileImage()
-        
-        
     }
     
     func imgRef(uid: String) -> StorageReference{
@@ -43,15 +42,11 @@ class ForumController: UIViewController {
             print(error ?? "No ERROR")
             
         }
-        
-        
-        
     }
     
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        
     }
 
     

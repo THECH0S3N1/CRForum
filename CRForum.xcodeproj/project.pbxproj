@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		2592E1B0A8AA09471088B5FA /* Pods_CRForum.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E08F614995DD431CF4F9E58 /* Pods_CRForum.framework */; };
 		55BB41B034AF69A5ADE1C0EA /* Pods_CRForumTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA5604B614F52FF3568F2C71 /* Pods_CRForumTests.framework */; };
+		9CF62FE621921D2700FB75B2 /* SendingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF62FE521921D2700FB75B2 /* SendingController.swift */; };
+		9CF62FE821921D5F00FB75B2 /* SendingControllerMod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF62FE721921D5F00FB75B2 /* SendingControllerMod.swift */; };
+		9CF62FEA21921D8E00FB75B2 /* ReadPostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF62FE921921D8E00FB75B2 /* ReadPostController.swift */; };
+		9CF62FEC21921DA500FB75B2 /* ReadPostControllerMod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF62FEB21921DA500FB75B2 /* ReadPostControllerMod.swift */; };
+		9CF62FEE21921DDE00FB75B2 /* PostModifierController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF62FED21921DDE00FB75B2 /* PostModifierController.swift */; };
+		9CF62FF021921DF600FB75B2 /* PostCreationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF62FEF21921DF600FB75B2 /* PostCreationController.swift */; };
 		E1DD2D4799261912A295E2A0 /* Pods_CRForumUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3BFAAFEEFA96F0FDC781390 /* Pods_CRForumUITests.framework */; };
 		EA062D8920F94C1D00D10857 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA062D8820F94C1D00D10857 /* AppDelegate.swift */; };
 		EA062D8B20F94C1D00D10857 /* WalletController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA062D8A20F94C1D00D10857 /* WalletController.swift */; };
@@ -58,6 +64,12 @@
 		7CF8E34B11FF9C4D3853F54A /* Pods-CRForum.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CRForum.release.xcconfig"; path = "Pods/Target Support Files/Pods-CRForum/Pods-CRForum.release.xcconfig"; sourceTree = "<group>"; };
 		82E591D7D82CBE6FE6659922 /* Pods-CRForumUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CRForumUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CRForumUITests/Pods-CRForumUITests.release.xcconfig"; sourceTree = "<group>"; };
 		8E08F614995DD431CF4F9E58 /* Pods_CRForum.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CRForum.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9CF62FE521921D2700FB75B2 /* SendingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendingController.swift; sourceTree = "<group>"; };
+		9CF62FE721921D5F00FB75B2 /* SendingControllerMod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendingControllerMod.swift; sourceTree = "<group>"; };
+		9CF62FE921921D8E00FB75B2 /* ReadPostController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadPostController.swift; sourceTree = "<group>"; };
+		9CF62FEB21921DA500FB75B2 /* ReadPostControllerMod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadPostControllerMod.swift; sourceTree = "<group>"; };
+		9CF62FED21921DDE00FB75B2 /* PostModifierController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModifierController.swift; sourceTree = "<group>"; };
+		9CF62FEF21921DF600FB75B2 /* PostCreationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCreationController.swift; sourceTree = "<group>"; };
 		A65A99070D591882A530D68A /* Pods-CRForum.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CRForum.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CRForum/Pods-CRForum.debug.xcconfig"; sourceTree = "<group>"; };
 		C3BFAAFEEFA96F0FDC781390 /* Pods_CRForumUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CRForumUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA5604B614F52FF3568F2C71 /* Pods_CRForumTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CRForumTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -184,6 +196,12 @@
 				EA10B8AF21480FE900632069 /* ForumControllerMod.swift */,
 				EA10B8B12148100700632069 /* VerificationController.swift */,
 				EA10B8B32148101D00632069 /* VerificationControllerMod.swift */,
+				9CF62FE521921D2700FB75B2 /* SendingController.swift */,
+				9CF62FE721921D5F00FB75B2 /* SendingControllerMod.swift */,
+				9CF62FE921921D8E00FB75B2 /* ReadPostController.swift */,
+				9CF62FEB21921DA500FB75B2 /* ReadPostControllerMod.swift */,
+				9CF62FED21921DDE00FB75B2 /* PostModifierController.swift */,
+				9CF62FEF21921DF600FB75B2 /* PostCreationController.swift */,
 				EA062D8E20F94C1D00D10857 /* Main.storyboard */,
 				EA062D9320F94C1D00D10857 /* LaunchScreen.storyboard */,
 				EA062D9120F94C1D00D10857 /* Assets.xcassets */,
@@ -453,17 +471,23 @@
 				EA062D8D20F94C1D00D10857 /* GenerationController.swift in Sources */,
 				EA6A181321013ED1002002D8 /* SignUpUser.swift in Sources */,
 				EA10B8AE21480F4800632069 /* GenerationControllerMod.swift in Sources */,
+				9CF62FEA21921D8E00FB75B2 /* ReadPostController.swift in Sources */,
 				EA062D8920F94C1D00D10857 /* AppDelegate.swift in Sources */,
 				EA6A181521013FAF002002D8 /* SignUpModerator.swift in Sources */,
+				9CF62FE821921D5F00FB75B2 /* SendingControllerMod.swift in Sources */,
 				EA27B9BD2166847500A14DAD /* database.xcdatamodeld in Sources */,
 				EA10B8B42148101D00632069 /* VerificationControllerMod.swift in Sources */,
 				EAECC20E20F95E03000F2482 /* StartScreen.swift in Sources */,
 				EA10B8B22148100700632069 /* VerificationController.swift in Sources */,
 				EAECC20C20F95DF1000F2482 /* ForumController.swift in Sources */,
 				EA10B8B021480FE900632069 /* ForumControllerMod.swift in Sources */,
+				9CF62FEC21921DA500FB75B2 /* ReadPostControllerMod.swift in Sources */,
 				EABB4B8121076D9A00334B33 /* touchIDLogin.swift in Sources */,
 				EA10B8AC21480E8700632069 /* WalletControllerMod.swift in Sources */,
+				9CF62FEE21921DDE00FB75B2 /* PostModifierController.swift in Sources */,
 				EA062D8B20F94C1D00D10857 /* WalletController.swift in Sources */,
+				9CF62FF021921DF600FB75B2 /* PostCreationController.swift in Sources */,
+				9CF62FE621921D2700FB75B2 /* SendingController.swift in Sources */,
 				EA1C26F5216660390077A459 /* BlockBase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
