@@ -24,7 +24,6 @@ class GenerationController: UIViewController {
     @IBOutlet weak var generateButton: UIButton!
     
     
-    
     func removePrevValue(){
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "UserData")

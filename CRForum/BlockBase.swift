@@ -22,15 +22,17 @@ class Blocks{
     var hash = String()
     var prevHash = String()
     var index = Int()
-    var userData = String()
-    func generateNewHash()->String{
-        var hash = ""
-        for _ in 0..<16{
-            let r = Int(arc4random_uniform(UInt32(hashBase.count)))
-            hash += String(hashBase[hashBase.index(hashBase.startIndex, offsetBy: r)])
-        }
-        return hash
-    }
+    
+    /*func sha256(data : NSData) -> String {
+        let res = NSMutableData(length: Int(CC_SHA256_DIGEST_LENGTH))
+        CC_SHA256(data.bytes, CC_LONG(data.length), UnsafeMutablePointer(res!.mutableBytes))
+        return "\(res!)".stringByReplacingOccurrencesOfString("", withString: "").stringByReplacingOccurrencesOfString(" ", withString: "")
+        
+    }*/
+    
+    
+    
+    
 }
 
 //blockchain class build-up of the blocks
@@ -42,7 +44,10 @@ class BlockChain{
     var blockChain = [Blocks]()
     var blockDataFile = ""
     let fileName = "blockDataFile.txt"
-    
+    var amount = 0.0
+    var from = ""
+    var to = ""
+    var timestamp = ""
     
     
     //load data from the database and store it in a string to pass to the block data
@@ -55,57 +60,61 @@ class BlockChain{
             let result = try context.fetch(userBlockData)
             for data in result as! [NSManagedObject] {
                 userData.append((data.value(forKey: "amount") as! String))
+                amount = (data.value(forKey: "amount") as! Double)
                 userData.append((data.value(forKey: "/") as! String))
                 userData.append((data.value(forKey: "fromwallet") as! String))
+                from = (data.value(forKey: "fromwallet") as! String)
                 userData.append((data.value(forKey: "/") as! String))
                 userData.append((data.value(forKey: "towallet") as! String))
-                userData.append((data.value(forKey: "/") as! String))
-                userData.append((data.value(forKey: "hashh") as! String))
-                userData.append((data.value(forKey: "/") as! String))
-                userData.append((data.value(forKey: "prevhash") as! String))
+                to = (data.value(forKey: "towallet") as! String)
                 userData.append((data.value(forKey: "/") as! String))
                 userData.append((data.value(forKey: "timestamp") as! String))
-                userData.append((data.value(forKey: "/") as! String))
+                timestamp = (data.value(forKey: "timestamp") as! String)
+
             }
         } catch {}
         return userData
     }
     
-    
-    //this function will only be performed by the first user, the rest will be added after the merkleroot
-    func createMerkleRoot(){
-        let merkleRoot = Blocks()
-        merkleRoot.hash = merkleRoot.generateNewHash()
-        merkleRoot.userData = fetchData()
-        merkleRoot.prevHash = "nil"
-        merkleRoot.index = 0
-        blockChain.append(merkleRoot)
-    }
-    
     func createNewBlock(){
         let newBlock = Blocks()
-        newBlock.hash = newBlock.generateNewHash()
-        newBlock.userData = fetchData()
-        newBlock.prevHash = blockChain[blockChain.count-1].hash
+        //newBlock.hash = newBlock.sha256(data: fetchData())
+        //newBlock.prevHash = getLastHash()
         newBlock.index = blockChain.count
-        blockChain.append(newBlock)
+        
+        saveBlockDataToDatabase(amount, to, from, timestamp, newBlock.prevHash ,newBlock.hash)
+        
     }
     
-    //saving currently made block to Firebase's text file blockDataFile
+    //saving currently made block to Firebase's realtime database
     
-    func getLastHash() -> String{
-        
-        
-        /////////code here follows v2.7
-        
-        return ""
+    func getLastHash(completion: @escaping (String) -> Void){
+        var lastHash = ""
+        self.baseReference = Database.database().reference(fromURL: "https://crforum-f63c5.firebaseio.com/")
+        let directRef = self.baseReference.child("hash")
+        directRef.queryLimited(toLast: 1).observeSingleEvent(of: .value, with: { (snapshot: DataSnapshot!) in
+            if let dictionary = snapshot.value as? [String: String]{
+                lastHash = dictionary["hlastHash"]!
+                completion(lastHash)
+            }
+        })
     }
     
-    func saveBlockDataToDatabase(_ amount: Double, _ destAddress: String, _ originAddress: String, _ timestamp: String, _ hash: String ){
-        let prevhash = getLastHash()
+    func getIndexx(completion: @escaping (Int) -> Void){
+        var countt = 0
+        self.baseReference = Database.database().reference(fromURL: "https://crforum-f63c5.firebaseio.com/")
+        self.baseReference.child("blockchain").observeSingleEvent(of: .value, with: { (snapshot: DataSnapshot!) in
+            countt += Int((snapshot.childrenCount))
+            completion(countt)
+        })
+    }
+
+    
+
+    func saveBlockDataToDatabase(_ amount: Double, _ destAddress: String, _ originAddress: String, _ timestamp: String, _ prevhash: String, _ hash: String ){
         baseReference = Database.database().reference(fromURL: "https://crforum-f63c5.firebaseio.com/")
         let directRef = self.baseReference.child("blockchain").child(hash)
-        let data = ["amount": amount, "toWallet": destAddress, "fromWallet": originAddress, "timestamp": timestamp, "hash": hash, "prevhash": prevhash] as [String : Any]
+        let data = ["amount": amount, "toWallet": destAddress, "fromWallet": originAddress, "timestamp": timestamp, "prevhash": prevhash] as [String : Any]
         directRef.updateChildValues(data, withCompletionBlock: {(error, reference) in
             if error != nil{
                 print(error ?? "")

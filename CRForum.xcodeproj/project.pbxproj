@@ -64,6 +64,7 @@
 		7CF8E34B11FF9C4D3853F54A /* Pods-CRForum.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CRForum.release.xcconfig"; path = "Pods/Target Support Files/Pods-CRForum/Pods-CRForum.release.xcconfig"; sourceTree = "<group>"; };
 		82E591D7D82CBE6FE6659922 /* Pods-CRForumUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CRForumUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CRForumUITests/Pods-CRForumUITests.release.xcconfig"; sourceTree = "<group>"; };
 		8E08F614995DD431CF4F9E58 /* Pods_CRForum.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CRForum.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9CE9C91E21949E7300118913 /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
 		9CF62FE521921D2700FB75B2 /* SendingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendingController.swift; sourceTree = "<group>"; };
 		9CF62FE721921D5F00FB75B2 /* SendingControllerMod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendingControllerMod.swift; sourceTree = "<group>"; };
 		9CF62FE921921D8E00FB75B2 /* ReadPostController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadPostController.swift; sourceTree = "<group>"; };
@@ -159,6 +160,7 @@
 		EA062D7C20F94C1D00D10857 = {
 			isa = PBXGroup;
 			children = (
+				9CE9C91E21949E7300118913 /* Header.h */,
 				EA062D8720F94C1D00D10857 /* CRForum */,
 				EA062D9E20F94C1E00D10857 /* CRForumTests */,
 				EA062DA920F94C1E00D10857 /* CRForumUITests */,
@@ -666,6 +668,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ZSYS.CRForum;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = Header.h;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -683,6 +686,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ZSYS.CRForum;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = Header.h;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

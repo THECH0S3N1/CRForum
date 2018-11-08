@@ -69,6 +69,19 @@ class WalletController: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let completion = { (count: Int) in
+            
+            print("\(count)")
+        }
+        BlockChain().getIndexx(completion: completion)
+        let completion2 = { (last: String) in
+            
+            print(last)
+        }
+        
+        
+        BlockChain().getLastHash(completion: completion2)
         baseReference = Database.database().reference(fromURL: "https://crforum-f63c5.firebaseio.com/")
         activity.isHidden = true
         readItems()
