@@ -1,5 +1,5 @@
 //
-//  WalletControllerMod.swift
+//  WalletController.swift
 //  CRForum
 //
 //  Created by OSXXX on 13/07/2018.
@@ -8,11 +8,15 @@
 
 import UIKit
 import LocalAuthentication
-import Firebase
 import CoreData
+import Firebase
 
 
-class WalletControllerMod: UIViewController, UITableViewDelegate, UITableViewDataSource  {
+
+
+class WalletControllerMod: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    
     
     var transactionsArray = [String]()
     var baseReference: DatabaseReference!
@@ -32,7 +36,7 @@ class WalletControllerMod: UIViewController, UITableViewDelegate, UITableViewDat
         transactionsArray.removeAll()
         self.viewDidLoad()
         self.viewWillAppear(true)
-       
+        
     }
     
     
@@ -51,7 +55,7 @@ class WalletControllerMod: UIViewController, UITableViewDelegate, UITableViewDat
     
     func updateDatabaseValues(_ address: String,_ balance: Double){
         baseReference = Database.database().reference(fromURL: "https://crforum-f63c5.firebaseio.com/")
-        let directRef = baseReference.child("moderators").child(address)
+        let directRef = baseReference.child("users").child(address)
         directRef.updateChildValues(["balance": balance], withCompletionBlock: {(error, reference) in
             if error != nil{
                 print(error ?? "")
@@ -62,8 +66,17 @@ class WalletControllerMod: UIViewController, UITableViewDelegate, UITableViewDat
         
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let completion = { (count: Int) in
+            
+            print("\(count)")
+        }
+        BlockChain().getIndexx(completion: completion)
+        
+        
         baseReference = Database.database().reference(fromURL: "https://crforum-f63c5.firebaseio.com/")
         activity.isHidden = true
         readItems()
@@ -71,7 +84,6 @@ class WalletControllerMod: UIViewController, UITableViewDelegate, UITableViewDat
         transactionTable.dataSource = self
         transactionTable.delegate = self
         transactionTable.register(UITableViewCell.self, forCellReuseIdentifier: "historycell")
-        
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "UserData")
         request.returnsObjectsAsFaults = false
@@ -85,7 +97,6 @@ class WalletControllerMod: UIViewController, UITableViewDelegate, UITableViewDat
         } catch {
             print("Loading data from storage failed")
         }
-        
         
         
     }
@@ -136,12 +147,7 @@ class WalletControllerMod: UIViewController, UITableViewDelegate, UITableViewDat
         }
         
     }
-    
-    
-    
 }
-
-
 
 
 

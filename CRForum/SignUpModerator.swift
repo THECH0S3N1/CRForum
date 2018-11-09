@@ -34,7 +34,7 @@ struct Moderator{
         self.totalBalance = totalBalance
     }
 }
-
+var hashBase = "0123456789abcdefghijklmnopqrstuvwqyzABCDEFGHIJKLMNOPQRTSUVWXYZ"
 var moderatorContacts: [Moderator] = []
 var modflag = 0
 class SignUpModerator: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -48,6 +48,7 @@ class SignUpModerator: UIViewController, UIImagePickerControllerDelegate, UINavi
     @IBOutlet weak var profileView: UIImageView!
     @IBOutlet weak var errorText: UILabel!
     var baseReference: DatabaseReference!
+    
     var moderatorIDString = ""
     var dataFile = ""
     let fileName = "dataFile.txt"

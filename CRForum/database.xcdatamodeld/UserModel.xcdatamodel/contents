@@ -3,9 +3,7 @@
     <entity name="BlockchainData" representedClassName="BlockchainData" syncable="YES" codeGenerationType="class">
         <attribute name="amount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="fromwallet" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="hashh" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="prevhash" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="timestamp" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="towallet" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="transaction" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserData" inverseName="transaction" inverseEntity="UserData" syncable="YES"/>
     </entity>
@@ -27,8 +25,8 @@
         <relationship name="transaction" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BlockchainData" inverseName="transaction" inverseEntity="BlockchainData" syncable="YES"/>
     </entity>
     <elements>
-        <element name="BlockchainData" positionX="-18" positionY="27" width="128" height="30"/>
-        <element name="UserData" positionX="-45" positionY="0" width="128" height="195"/>
+        <element name="BlockchainData" positionX="-18" positionY="27" width="128" height="120"/>
         <element name="TransactionData" positionX="-27" positionY="81" width="128" height="90"/>
+        <element name="UserData" positionX="-45" positionY="0" width="128" height="195"/>
     </elements>
 </model>

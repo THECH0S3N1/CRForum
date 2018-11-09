@@ -11,26 +11,28 @@ import UIKit
 import Firebase
 import CoreData
 
-//chars to choose the hash elements
-var hashBase = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMOPQRSTUVWXYZ0123456789"
 
-//data to be used from the coredata
+//some data is to be used from the coredata
 //segment describing the blocks of the blockchain, including the hash function for next blocks.
-//for simplicity, only 16 character hashes will be used.
 
 class Blocks{
     var hash = String()
     var prevHash = String()
     var index = Int()
     
-    /*func sha256(data : NSData) -> String {
-        let res = NSMutableData(length: Int(CC_SHA256_DIGEST_LENGTH))
-        CC_SHA256(data.bytes, CC_LONG(data.length), UnsafeMutablePointer(res!.mutableBytes))
-        return "\(res!)".stringByReplacingOccurrencesOfString("", withString: "").stringByReplacingOccurrencesOfString(" ", withString: "")
+    //encryption algorithm SHA256 - encrypting data element to a data hash element
+    
+    func sha256(_ toEncrypt: String) -> String {
         
-    }*/
-    
-    
+        let data = toEncrypt.data(using: String.Encoding.utf8)
+        let res = NSMutableData(length: Int(CC_SHA256_DIGEST_LENGTH))
+        CC_SHA256(((data! as NSData)).bytes, CC_LONG(data!.count), res?.mutableBytes.assumingMemoryBound(to: UInt8.self))
+        let hashedString = "\(res!)".replacingOccurrences(of: "", with: "").replacingOccurrences(of: " ", with: "")
+        let badchar: CharacterSet = CharacterSet(charactersIn: "\"<\",\">\"")
+        let cleanedstring: String = (hashedString.components(separatedBy: badchar) as NSArray).componentsJoined(by: "")
+        return cleanedstring
+        
+    }
     
     
 }
@@ -44,49 +46,60 @@ class BlockChain{
     var blockChain = [Blocks]()
     var blockDataFile = ""
     let fileName = "blockDataFile.txt"
-    var amount = 0.0
-    var from = ""
-    var to = ""
     var timestamp = ""
     
     
     //load data from the database and store it in a string to pass to the block data
     
-    func fetchData()->String{
+    /*func fetchData()->String{
         var userData = String()
         do {
             let userBlockData = NSFetchRequest<NSFetchRequestResult>(entityName: "BlockchainData")
             let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
             let result = try context.fetch(userBlockData)
             for data in result as! [NSManagedObject] {
-                userData.append((data.value(forKey: "amount") as! String))
+                let amountToString = String(format:"%.1f", (data.value(forKey: "amount") as! Double))
+                userData.append(amountToString)
                 amount = (data.value(forKey: "amount") as! Double)
-                userData.append((data.value(forKey: "/") as! String))
+                print("amount:", amount)
                 userData.append((data.value(forKey: "fromwallet") as! String))
                 from = (data.value(forKey: "fromwallet") as! String)
-                userData.append((data.value(forKey: "/") as! String))
+                print("from", from)
                 userData.append((data.value(forKey: "towallet") as! String))
                 to = (data.value(forKey: "towallet") as! String)
-                userData.append((data.value(forKey: "/") as! String))
-                userData.append((data.value(forKey: "timestamp") as! String))
-                timestamp = (data.value(forKey: "timestamp") as! String)
+                print("to", to)
+                //userData.append((data.value(forKey: "timestamp") as! String))
+                timestamp = ""
 
             }
         } catch {}
         return userData
-    }
+    }*/
     
-    func createNewBlock(){
+    //one of the most important functions of this class
+    //create new block within the blockchain, by retrieving the last hash, index and storing new block on the blockchain
+    
+    func createNewBlock(_ to: String, _ from: String, _ amount: Double, _ timestamp: String) -> String{
+        var userData = String()
+        userData.append(to)
+        userData.append(from)
+        userData.append(String(format:"%.1f", amount))
+        userData.append(timestamp)
         let newBlock = Blocks()
-        //newBlock.hash = newBlock.sha256(data: fetchData())
-        //newBlock.prevHash = getLastHash()
-        newBlock.index = blockChain.count
-        
-        saveBlockDataToDatabase(amount, to, from, timestamp, newBlock.prevHash ,newBlock.hash)
+        newBlock.hash = newBlock.sha256(userData)
+        let completion = { (count: Int) in
+            newBlock.index = count
+        }
+        getIndexx(completion: completion)
+        let completion2 = { (last: String) in
+            newBlock.prevHash = last
+        }
+        getLastHash(completion: completion2)
+        return newBlock.hash
         
     }
     
-    //saving currently made block to Firebase's realtime database
+    //get the last block's hash from the blockchain, using completionHandler
     
     func getLastHash(completion: @escaping (String) -> Void){
         var lastHash = ""
@@ -96,9 +109,12 @@ class BlockChain{
             if let dictionary = snapshot.value as? [String: String]{
                 lastHash = dictionary["hlastHash"]!
                 completion(lastHash)
+                
             }
         })
     }
+    
+    //get number of blocks in the blockchain, returning a result on completion, using completionHandler
     
     func getIndexx(completion: @escaping (Int) -> Void){
         var countt = 0
@@ -106,15 +122,16 @@ class BlockChain{
         self.baseReference.child("blockchain").observeSingleEvent(of: .value, with: { (snapshot: DataSnapshot!) in
             countt += Int((snapshot.childrenCount))
             completion(countt)
+            
         })
     }
 
-    
+    //save newblockdata to the blockchain
 
-    func saveBlockDataToDatabase(_ amount: Double, _ destAddress: String, _ originAddress: String, _ timestamp: String, _ prevhash: String, _ hash: String ){
+    func saveBlockDataToDatabase(_ amount: Double, _ destAddress: String, _ originAddress: String, _ timestamp: String, _ prevhash: String, _ hash: String, _ indexx: Int ){
         baseReference = Database.database().reference(fromURL: "https://crforum-f63c5.firebaseio.com/")
         let directRef = self.baseReference.child("blockchain").child(hash)
-        let data = ["amount": amount, "toWallet": destAddress, "fromWallet": originAddress, "timestamp": timestamp, "prevhash": prevhash] as [String : Any]
+        let data = ["amount": amount, "toWallet": destAddress, "fromWallet": originAddress, "timestamp": timestamp, "prevhash": prevhash, "index": indexx] as [String : Any]
         directRef.updateChildValues(data, withCompletionBlock: {(error, reference) in
             if error != nil{
                 print(error ?? "")
@@ -123,11 +140,7 @@ class BlockChain{
             print("Saved Blockchain Data")
         })
         
-        
-        
+
     }
-    
-    
-    
     
 }

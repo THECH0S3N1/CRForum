@@ -21,7 +21,7 @@ class WalletController: UIViewController, UITableViewDelegate, UITableViewDataSo
     var transactionsArray = [String]()
     var baseReference: DatabaseReference!
     var stringToAdd = ""
-    var index = 0
+    
     
     
     @IBOutlet weak var activity: UIActivityIndicatorView!
@@ -75,13 +75,8 @@ class WalletController: UIViewController, UITableViewDelegate, UITableViewDataSo
             print("\(count)")
         }
         BlockChain().getIndexx(completion: completion)
-        let completion2 = { (last: String) in
-            
-            print(last)
-        }
         
         
-        BlockChain().getLastHash(completion: completion2)
         baseReference = Database.database().reference(fromURL: "https://crforum-f63c5.firebaseio.com/")
         activity.isHidden = true
         readItems()
