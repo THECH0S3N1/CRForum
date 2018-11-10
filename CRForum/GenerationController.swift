@@ -85,17 +85,25 @@ class GenerationController: UIViewController {
         
     }
     
-    //generation button will be using several functions, the most important of which, is calling the function to create newBlock to the blockchain, as well as update Coredata storage values
-    //creating new block will require some time, for retrieving data from the firebase, whenever the generation button is pressed (due to new transaction)
+    //get current date and time values as one string i.e. timestamp
     
-    @IBAction func generateButton(_ sender: Any){
+    func getTimeString() -> String{
         let time = Date()
-        var index = Int()
-        var prevhash = String()
         let format = DateFormatter()
         format.timeZone = TimeZone.current
         format.dateFormat = "yyyy-MM-dd HH:mm"
         let dateString = format.string(from: time)
+        return dateString
+    }
+    
+    //generation button will be using several functions, the most important of which, is calling the function to create newBlock to the blockchain, as well as update Coredata storage values
+    //creating new block will require some time, for retrieving data from the firebase, whenever the generation button is pressed (due to new transaction)
+    
+    @IBAction func generateButton(_ sender: Any){
+        
+        var index = Int()
+        var prevhash = String()
+        let dateString = getTimeString()
         generateView.isUserInteractionEnabled = false
         generateButton.isHidden = true
         animateProgress()

@@ -21,9 +21,10 @@ class Blocks{
     var index = Int()
     
     //encryption algorithm SHA256 - encrypting data element to a data hash element
+    //the following code snippet eliminates bad characters (special, non-alpha-numeric chars)
+    //creating an exactly 64-long chars hash value
     
     func sha256(_ toEncrypt: String) -> String {
-        
         let data = toEncrypt.data(using: String.Encoding.utf8)
         let res = NSMutableData(length: Int(CC_SHA256_DIGEST_LENGTH))
         CC_SHA256(((data! as NSData)).bytes, CC_LONG(data!.count), res?.mutableBytes.assumingMemoryBound(to: UInt8.self))
@@ -33,48 +34,20 @@ class Blocks{
         return cleanedstring
         
     }
-    
-    
 }
 
 //blockchain class build-up of the blocks
+//this part does not represent the true blockchain, but rather functions for it be created in the database
+//creating a block-based data, hashing the value of the generated transaction, indexing and extracting the previous hash value in the database.
 
 class BlockChain{
     
     
     var baseReference: DatabaseReference!
     var blockChain = [Blocks]()
-    var blockDataFile = ""
-    let fileName = "blockDataFile.txt"
+    //var blockDataFile = ""
+    //let fileName = "blockDataFile.txt"
     var timestamp = ""
-    
-    
-    //load data from the database and store it in a string to pass to the block data
-    
-    /*func fetchData()->String{
-        var userData = String()
-        do {
-            let userBlockData = NSFetchRequest<NSFetchRequestResult>(entityName: "BlockchainData")
-            let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-            let result = try context.fetch(userBlockData)
-            for data in result as! [NSManagedObject] {
-                let amountToString = String(format:"%.1f", (data.value(forKey: "amount") as! Double))
-                userData.append(amountToString)
-                amount = (data.value(forKey: "amount") as! Double)
-                print("amount:", amount)
-                userData.append((data.value(forKey: "fromwallet") as! String))
-                from = (data.value(forKey: "fromwallet") as! String)
-                print("from", from)
-                userData.append((data.value(forKey: "towallet") as! String))
-                to = (data.value(forKey: "towallet") as! String)
-                print("to", to)
-                //userData.append((data.value(forKey: "timestamp") as! String))
-                timestamp = ""
-
-            }
-        } catch {}
-        return userData
-    }*/
     
     //one of the most important functions of this class
     //create new block within the blockchain, by retrieving the last hash, index and storing new block on the blockchain
@@ -95,7 +68,23 @@ class BlockChain{
             newBlock.prevHash = last
         }
         getLastHash(completion: completion2)
+        saveNewLastHash(newBlock.hash)
         return newBlock.hash
+        
+    }
+    
+    //update the "last" hash value in the database, for future blocks
+    
+    func saveNewLastHash(_ hash: String){
+        baseReference = Database.database().reference(fromURL: "https://crforum-f63c5.firebaseio.com/")
+        let directRef = self.baseReference.child("hash")
+        directRef.updateChildValues(["hlastHash": hash], withCompletionBlock: {(error, reference) in
+            if error != nil{
+                print(error ?? "")
+                return
+            }
+            print("Saved successfuly to database")
+        })
         
     }
     
@@ -126,7 +115,7 @@ class BlockChain{
         })
     }
 
-    //save newblockdata to the blockchain
+    //save newblock data to the blockchain
 
     func saveBlockDataToDatabase(_ amount: Double, _ destAddress: String, _ originAddress: String, _ timestamp: String, _ prevhash: String, _ hash: String, _ indexx: Int ){
         baseReference = Database.database().reference(fromURL: "https://crforum-f63c5.firebaseio.com/")
@@ -144,3 +133,37 @@ class BlockChain{
     }
     
 }
+
+
+
+//outdated code element
+//load data from the database and store it in a string to pass to the block data
+//outdated code element
+
+/*func fetchData()->String{
+ var userData = String()
+ do {
+ let userBlockData = NSFetchRequest<NSFetchRequestResult>(entityName: "BlockchainData")
+ let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+ let result = try context.fetch(userBlockData)
+ for data in result as! [NSManagedObject] {
+ let amountToString = String(format:"%.1f", (data.value(forKey: "amount") as! Double))
+ userData.append(amountToString)
+ amount = (data.value(forKey: "amount") as! Double)
+ print("amount:", amount)
+ userData.append((data.value(forKey: "fromwallet") as! String))
+ from = (data.value(forKey: "fromwallet") as! String)
+ print("from", from)
+ userData.append((data.value(forKey: "towallet") as! String))
+ to = (data.value(forKey: "towallet") as! String)
+ print("to", to)
+ //userData.append((data.value(forKey: "timestamp") as! String))
+ timestamp = ""
+ 
+ }
+ } catch {}
+ return userData
+ }*/
+
+
+

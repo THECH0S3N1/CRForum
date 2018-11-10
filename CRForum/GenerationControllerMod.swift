@@ -1,5 +1,5 @@
 //
-//  GeneratiorController.swift
+//  GeneratiorControllerMod.swift
 //  CRForum
 //
 //  Created by OSXXX on 13/07/2018.
