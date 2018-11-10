@@ -115,12 +115,13 @@ class GenerationController: UIViewController {
             index = count
         }
         BlockChain().getIndexx(completion: completion)
+        
         let completion2 = { (last: String) in
             prevhash = last
         }
+        
         BlockChain().getLastHash(completion: completion2)
-        
-        
+
         DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
             BlockChain().saveBlockDataToDatabase(1.0, self.address, self.address, dateString, prevhash, hash, index)
         }

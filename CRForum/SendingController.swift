@@ -184,48 +184,44 @@ class SendingController: UIViewController, UITableViewDelegate, UITableViewDataS
     
     
     
-        func removePrevValue(){
-            let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-            let request = NSFetchRequest<NSFetchRequestResult>(entityName: "UserData")
-            request.returnsObjectsAsFaults = false
-            request.fetchLimit = 1
-            do {
-                let result = try context.fetch(request)
-                for data in result as! [NSManagedObject] {
-                    totalLocalBalance = data.value(forKey: "totalbalance") as! Double
-                    context.delete(data)
-                }
-            } catch {
-                print("Loading data from storage failed")
+    func removePrevValue(){
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "UserData")
+        request.returnsObjectsAsFaults = false
+        request.fetchLimit = 1
+        do {
+            let result = try context.fetch(request)
+            for data in result as! [NSManagedObject] {
+                totalLocalBalance = data.value(forKey: "totalbalance") as! Double
+                context.delete(data)
             }
-            do { try context.save()
-            } catch {
-                print("Error saving to local database")
-            }
+        } catch {
+            print("Loading data from storage failed")
         }
-        func saveNewValues(){
-            let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-            let userEntity = NSEntityDescription.entity(forEntityName: "UserData", in: context)!
-            let user = NSManagedObject(entity: userEntity, insertInto: context)
-            let transactionEntity = NSEntityDescription.entity(forEntityName: "TransactionData", in: context)!
-            let transaction = NSManagedObject(entity: transactionEntity, insertInto: context)
-            let timestamp = NSDate().timeIntervalSince1970
-            let myTimeInterval = TimeInterval(timestamp)
-            newValue = totalLocalBalance-((amountToSendField.text! as NSString).doubleValue)
-            user.setValue(newValue, forKey: "totalbalance")
-            transaction.setValue("Sent Currency", forKey: "transactiondescription")
-            transaction.setValue(((amountToSendField.text! as NSString).doubleValue), forKey: "amount")
-            transaction.setValue(NSDate(timeIntervalSince1970: TimeInterval(myTimeInterval)), forKey: "timestamp")
-            do {
-                try context.save()
-            } catch {
-                print("Error saving to local database")
-            }
+        do { try context.save()
+        } catch {
+            print("Error saving to local database")
         }
-        
-    
-    
-    
+    }
+    func saveNewValues(){
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        let userEntity = NSEntityDescription.entity(forEntityName: "UserData", in: context)!
+        let user = NSManagedObject(entity: userEntity, insertInto: context)
+        let transactionEntity = NSEntityDescription.entity(forEntityName: "TransactionData", in: context)!
+        let transaction = NSManagedObject(entity: transactionEntity, insertInto: context)
+        let timestamp = NSDate().timeIntervalSince1970
+        let myTimeInterval = TimeInterval(timestamp)
+        newValue = totalLocalBalance-((amountToSendField.text! as NSString).doubleValue)
+        user.setValue(newValue, forKey: "totalbalance")
+        transaction.setValue("Sent Currency", forKey: "transactiondescription")
+        transaction.setValue(((amountToSendField.text! as NSString).doubleValue), forKey: "amount")
+        transaction.setValue(NSDate(timeIntervalSince1970: TimeInterval(myTimeInterval)), forKey: "timestamp")
+        do {
+            try context.save()
+        } catch {
+            print("Error saving to local database")
+        }
+    }
     
     func getLastBalance(completion: @escaping (Double) -> Void){
         var availableBalance = 0.0
@@ -242,6 +238,7 @@ class SendingController: UIViewController, UITableViewDelegate, UITableViewDataS
         })
     }
     
+    
     func checkIfAmountIsValid()->Bool{
         if (amountCurrent >= (amountToSendField.text! as NSString).doubleValue){
             return true
@@ -251,15 +248,11 @@ class SendingController: UIViewController, UITableViewDelegate, UITableViewDataS
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
         downloadAllUserList()
         userTable.reloadData()
         userTable.dataSource = self
         userTable.delegate = self
         userTable.register(UITableViewCell.self, forCellReuseIdentifier: "usercell")
-        
-        
-        
         let completion = { (availableBalance: Double) in
             self.amountCurrent = availableBalance
         }
@@ -270,7 +263,6 @@ class SendingController: UIViewController, UITableViewDelegate, UITableViewDataS
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        
         
     }
     

@@ -68,7 +68,8 @@ class BlockChain{
             newBlock.prevHash = last
         }
         getLastHash(completion: completion2)
-        saveNewLastHash(newBlock.hash)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.saveNewLastHash(newBlock.hash)}
         return newBlock.hash
         
     }
@@ -97,8 +98,10 @@ class BlockChain{
         directRef.queryLimited(toLast: 1).observeSingleEvent(of: .value, with: { (snapshot: DataSnapshot!) in
             if let dictionary = snapshot.value as? [String: String]{
                 lastHash = dictionary["hlastHash"]!
-                completion(lastHash)
-                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    print(lastHash)
+                    completion(lastHash)
+                }
             }
         })
     }
