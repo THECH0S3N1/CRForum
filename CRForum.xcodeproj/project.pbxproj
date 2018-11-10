@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2592E1B0A8AA09471088B5FA /* Pods_CRForum.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E08F614995DD431CF4F9E58 /* Pods_CRForum.framework */; };
 		55BB41B034AF69A5ADE1C0EA /* Pods_CRForumTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA5604B614F52FF3568F2C71 /* Pods_CRForumTests.framework */; };
+		9C4800272196FC2800908AB8 /* UserWallets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4800262196FC2800908AB8 /* UserWallets.swift */; };
 		9CF62FE621921D2700FB75B2 /* SendingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF62FE521921D2700FB75B2 /* SendingController.swift */; };
 		9CF62FE821921D5F00FB75B2 /* SendingControllerMod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF62FE721921D5F00FB75B2 /* SendingControllerMod.swift */; };
 		9CF62FEA21921D8E00FB75B2 /* ReadPostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF62FE921921D8E00FB75B2 /* ReadPostController.swift */; };
@@ -64,6 +65,7 @@
 		7CF8E34B11FF9C4D3853F54A /* Pods-CRForum.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CRForum.release.xcconfig"; path = "Pods/Target Support Files/Pods-CRForum/Pods-CRForum.release.xcconfig"; sourceTree = "<group>"; };
 		82E591D7D82CBE6FE6659922 /* Pods-CRForumUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CRForumUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CRForumUITests/Pods-CRForumUITests.release.xcconfig"; sourceTree = "<group>"; };
 		8E08F614995DD431CF4F9E58 /* Pods_CRForum.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CRForum.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9C4800262196FC2800908AB8 /* UserWallets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserWallets.swift; sourceTree = "<group>"; };
 		9CE9C91E21949E7300118913 /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
 		9CF62FE521921D2700FB75B2 /* SendingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendingController.swift; sourceTree = "<group>"; };
 		9CF62FE721921D5F00FB75B2 /* SendingControllerMod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendingControllerMod.swift; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 				EA1C26F4216660390077A459 /* BlockBase.swift */,
 				9CF62FE521921D2700FB75B2 /* SendingController.swift */,
 				9CF62FE721921D5F00FB75B2 /* SendingControllerMod.swift */,
+				9C4800262196FC2800908AB8 /* UserWallets.swift */,
 				EAECC20B20F95DF1000F2482 /* ForumController.swift */,
 				EA10B8AF21480FE900632069 /* ForumControllerMod.swift */,
 				EA10B8B12148100700632069 /* VerificationController.swift */,
@@ -477,6 +480,7 @@
 				EA062D8920F94C1D00D10857 /* AppDelegate.swift in Sources */,
 				EA6A181521013FAF002002D8 /* SignUpModerator.swift in Sources */,
 				9CF62FE821921D5F00FB75B2 /* SendingControllerMod.swift in Sources */,
+				9C4800272196FC2800908AB8 /* UserWallets.swift in Sources */,
 				EA27B9BD2166847500A14DAD /* database.xcdatamodeld in Sources */,
 				EA10B8B42148101D00632069 /* VerificationControllerMod.swift in Sources */,
 				EAECC20E20F95E03000F2482 /* StartScreen.swift in Sources */,

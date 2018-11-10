@@ -21,7 +21,8 @@ class WalletController: UIViewController, UITableViewDelegate, UITableViewDataSo
     var transactionsArray = [String]()
     var baseReference: DatabaseReference!
     var stringToAdd = ""
-    
+    var databaseBalance = 0.0
+    var globalBest = 0.0
     
     
     @IBOutlet weak var activity: UIActivityIndicatorView!
@@ -34,6 +35,7 @@ class WalletController: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     @IBAction func updateWalletButton(_ sender: Any) {
         transactionsArray.removeAll()
+        
         self.viewDidLoad()
         self.viewWillAppear(true)
         
@@ -66,16 +68,78 @@ class WalletController: UIViewController, UITableViewDelegate, UITableViewDataSo
         
     }
     
+    func checkForUpdate(){
+        let completion = { (newVal: Double) in
+            self.databaseBalance = newVal
+        }
+        getLastBalance(completion: completion)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            if (self.databaseBalance != self.globalBest){
+                self.currentBalanceLabel.text = String(format: "%.1f", self.databaseBalance)
+                self.removePrevValue()
+                self.saveNewValues()
+                self.globalBest = self.databaseBalance
+                self.updateDatabaseValues((Auth.auth().currentUser?.displayName)!, self.globalBest)
+            }
+        }
+    }
+    
+    func getLastBalance(completion: @escaping (Double) -> Void){
+        var availableBalance = 0.0
+        baseReference = Database.database().reference(fromURL: "https://crforum-f63c5.firebaseio.com/")
+        let userRef = self.baseReference.child("users").child((Auth.auth().currentUser?.displayName)!)
+        userRef.observeSingleEvent(of: .value, with: { (snapshot) in
+            if let dictionary = snapshot.value as? [String: AnyObject]{
+                availableBalance = dictionary["balance"] as! Double
+                completion(availableBalance)
+            }
+        })
+    }
+    
+    func removePrevValue(){
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "UserData")
+        request.returnsObjectsAsFaults = false
+        request.fetchLimit = 1
+        do {
+            let result = try context.fetch(request)
+            for data in result as! [NSManagedObject] {
+                context.delete(data)
+            }
+        } catch {
+            print("Loading data from storage failed")
+        }
+        do { try context.save()
+        } catch {
+            print("Error saving to local database")
+        }
+    }
+    
+    func saveNewValues(){
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        let userEntity = NSEntityDescription.entity(forEntityName: "UserData", in: context)!
+        let user = NSManagedObject(entity: userEntity, insertInto: context)
+        let transactionEntity = NSEntityDescription.entity(forEntityName: "TransactionData", in: context)!
+        let transaction = NSManagedObject(entity: transactionEntity, insertInto: context)
+        let timestamp = NSDate().timeIntervalSince1970
+        let myTimeInterval = TimeInterval(timestamp)
+
+        let receivedVal = databaseBalance-globalBest
+        user.setValue(databaseBalance, forKey: "totalbalance")
+        transaction.setValue("Received Currency", forKey: "transactiondescription")
+        transaction.setValue(receivedVal, forKey: "amount")
+        transaction.setValue(NSDate(timeIntervalSince1970: TimeInterval(myTimeInterval)), forKey: "timestamp")
+        do {
+            try context.save()
+        } catch {
+            print("Error saving to local database")
+        }
+        
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let completion = { (count: Int) in
-            
-            print("\(count)")
-        }
-        BlockChain().getIndexx(completion: completion)
-        
         
         baseReference = Database.database().reference(fromURL: "https://crforum-f63c5.firebaseio.com/")
         activity.isHidden = true
@@ -92,13 +156,12 @@ class WalletController: UIViewController, UITableViewDelegate, UITableViewDataSo
             for data in result as! [NSManagedObject] {
                 print(data.value(forKey: "totalbalance") as! Double)
                 currentBalanceLabel.text = String(data.value(forKey: "totalbalance") as! Double)
-                updateDatabaseValues((Auth.auth().currentUser?.displayName)!, (data.value(forKey: "totalbalance") as! Double))
+                globalBest = data.value(forKey: "totalbalance") as! Double
             }
         } catch {
             print("Loading data from storage failed")
         }
-        
-        
+        checkForUpdate()
     }
     
     override func viewWillDisappear(_ animated: Bool){
@@ -139,7 +202,6 @@ class WalletController: UIViewController, UITableViewDelegate, UITableViewDataSo
                 stringToAdd.append(stringDate)
                 transactionsArray.append(stringToAdd)
                 stringToAdd = ""
-                
             }
         }
         catch{
@@ -148,7 +210,6 @@ class WalletController: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     }
 }
-
 
 extension Date {
     func asString(style: DateFormatter.Style) -> String {
@@ -159,9 +220,7 @@ extension Date {
 }
 
 extension UITableView {
-    
     func scrollToBottom(){
-        
         DispatchQueue.main.async {
             let indexPath = IndexPath(row: self.numberOfRows(inSection:  self.numberOfSections-1) - 1, section: self.numberOfSections - 1)
             self.scrollToRow(at: indexPath, at: .bottom, animated: true)
