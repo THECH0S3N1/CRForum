@@ -56,6 +56,7 @@ class GenerationControllerMod: UIViewController {
             self.address = wallet
         }
         getCurrentUserWalletAddress(completion: completion)
+        WalletControllerMod().updateDatabaseValues((Auth.auth().currentUser?.displayName)!, totalLocalBalance+1)
         user.setValue(totalLocalBalance+1, forKey: "totalbalance")
         transaction.setValue("Generated Currency", forKey: "transactiondescription")
         transaction.setValue(1.00, forKey: "amount")

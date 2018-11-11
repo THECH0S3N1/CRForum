@@ -12,9 +12,5 @@ import Firebase
 
 class UserWallets: NSObject{
     var wallet: String?
-    // var balance: Double?
-    // var email: String?
-    //var username: String?
-    //var name: String?
-    //var phone: Double?
+
 }

@@ -10,6 +10,7 @@
 		2592E1B0A8AA09471088B5FA /* Pods_CRForum.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E08F614995DD431CF4F9E58 /* Pods_CRForum.framework */; };
 		55BB41B034AF69A5ADE1C0EA /* Pods_CRForumTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA5604B614F52FF3568F2C71 /* Pods_CRForumTests.framework */; };
 		9C4800272196FC2800908AB8 /* UserWallets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4800262196FC2800908AB8 /* UserWallets.swift */; };
+		9CEB110621989BA6002E5169 /* AllUserUpdates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEB110521989BA6002E5169 /* AllUserUpdates.swift */; };
 		9CF62FE621921D2700FB75B2 /* SendingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF62FE521921D2700FB75B2 /* SendingController.swift */; };
 		9CF62FE821921D5F00FB75B2 /* SendingControllerMod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF62FE721921D5F00FB75B2 /* SendingControllerMod.swift */; };
 		9CF62FEA21921D8E00FB75B2 /* ReadPostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF62FE921921D8E00FB75B2 /* ReadPostController.swift */; };
@@ -67,6 +68,7 @@
 		8E08F614995DD431CF4F9E58 /* Pods_CRForum.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CRForum.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C4800262196FC2800908AB8 /* UserWallets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserWallets.swift; sourceTree = "<group>"; };
 		9CE9C91E21949E7300118913 /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
+		9CEB110521989BA6002E5169 /* AllUserUpdates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllUserUpdates.swift; sourceTree = "<group>"; };
 		9CF62FE521921D2700FB75B2 /* SendingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendingController.swift; sourceTree = "<group>"; };
 		9CF62FE721921D5F00FB75B2 /* SendingControllerMod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendingControllerMod.swift; sourceTree = "<group>"; };
 		9CF62FE921921D8E00FB75B2 /* ReadPostController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadPostController.swift; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 				EA10B8AB21480E8700632069 /* WalletControllerMod.swift */,
 				EA062D8C20F94C1D00D10857 /* GenerationController.swift */,
 				EA10B8AD21480F4800632069 /* GenerationControllerMod.swift */,
+				9CEB110521989BA6002E5169 /* AllUserUpdates.swift */,
 				EA1C26F4216660390077A459 /* BlockBase.swift */,
 				9CF62FE521921D2700FB75B2 /* SendingController.swift */,
 				9CF62FE721921D5F00FB75B2 /* SendingControllerMod.swift */,
@@ -474,6 +477,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EA062D8D20F94C1D00D10857 /* GenerationController.swift in Sources */,
+				9CEB110621989BA6002E5169 /* AllUserUpdates.swift in Sources */,
 				EA6A181321013ED1002002D8 /* SignUpUser.swift in Sources */,
 				EA10B8AE21480F4800632069 /* GenerationControllerMod.swift in Sources */,
 				9CF62FEA21921D8E00FB75B2 /* ReadPostController.swift in Sources */,

@@ -11,16 +11,13 @@ import UIKit
 import CoreData
 import Firebase
 
-
 class SendingControllerMod: UIViewController, UITableViewDelegate, UITableViewDataSource{
     var baseReference: DatabaseReference!
     var allUsers = [UserWallets]()
-    var addressTo = ""
     var amountCurrent = 0.0
     var totalLocalBalance = 0.0
     var newValue = 0.0
-    var sentToUsername = ""
-    var sentToValue = 0.0
+    
     @IBOutlet weak var balanceLabel: UILabel!
     @IBOutlet weak var amountToSendField: UITextField!
     @IBOutlet weak var userTable: UITableView!
@@ -36,7 +33,7 @@ class SendingControllerMod: UIViewController, UITableViewDelegate, UITableViewDa
             let completion = { (wallet: String) in
                 addressFrom = wallet
             }
-            GenerationController().getCurrentUserWalletAddress(completion: completion)
+            GenerationControllerMod().getCurrentUserWalletAddress(completion: completion)
             let amount = (amountToSendField.text! as NSString).doubleValue
             let hash = BlockChain().createNewBlock(addressTo, addressFrom, amount, dateString)
             let completion2 = { (count: Int) in
@@ -48,13 +45,13 @@ class SendingControllerMod: UIViewController, UITableViewDelegate, UITableViewDa
             }
             BlockChain().getLastHash(completion: completion3)
             DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
-                BlockChain().saveBlockDataToDatabase(amount, self.addressTo, addressFrom, dateString, prevhash, hash, index)
+                BlockChain().saveBlockDataToDatabase(amount, addressTo, addressFrom, dateString, prevhash, hash, index)
             }
             removePrevValue()
             saveNewValues()
-            WalletController().updateDatabaseValues((Auth.auth().currentUser?.displayName)!, newValue)
-            getUsername()
-            performSegue(withIdentifier: "sentSuccess", sender: self)
+            WalletControllerMod().updateDatabaseValues((Auth.auth().currentUser?.displayName)!, newValue)
+            AllUserUpdates().getUsername(((self.amountToSendField.text! as NSString).doubleValue))
+            performSegue(withIdentifier: "sentSuccessfulMod", sender: self)
         }else{
             errorField.text = "Error. Please enter valid amount"
             
@@ -62,36 +59,7 @@ class SendingControllerMod: UIViewController, UITableViewDelegate, UITableViewDa
         
     }
     
-    func getUID(completion: @escaping (String) -> Void){
-        var uid = ""
-        baseReference = Database.database().reference(fromURL: "https://crforum-f63c5.firebaseio.com/").child("users")
-        baseReference.queryOrdered(byChild: "wallet").queryEqual(toValue: addressTo).observeSingleEvent(of: .childAdded, with: { (snapshot) in
-            uid = snapshot.key
-            print(uid)
-            
-            completion(uid)
-        })
-    }
     
-    
-    func getUsername(){
-        
-        let completion5 = { (uid: String)in
-            self.sentToUsername = uid
-        }
-        getUID(completion: completion5)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
-            print(self.sentToUsername)
-            let completion4 = { (newOtherVal: Double) in
-                self.sentToValue = newOtherVal
-            }
-            self.getReceiverBalanceToUpdate(self.sentToUsername, completion: completion4)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                WalletController().updateDatabaseValues(self.sentToUsername, (self.sentToValue+((self.amountToSendField.text! as NSString).doubleValue)))
-            }
-        }
-        
-    }
     
     deinit {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
@@ -108,18 +76,6 @@ class SendingControllerMod: UIViewController, UITableViewDelegate, UITableViewDa
             return false
         }
         return true
-    }
-    
-    func getReceiverBalanceToUpdate(_ id: String, completion: @escaping (Double)->Void){
-        var availableBalancee = 0.0
-        baseReference = Database.database().reference(fromURL: "https://crforum-f63c5.firebaseio.com/")
-        let userRef = self.baseReference.child("users").child(id)
-        userRef.observeSingleEvent(of: .value, with: { (snapshot) in
-            if let dictionary = snapshot.value as? [String: AnyObject]{
-                availableBalancee = dictionary["balance"] as! Double
-                completion(availableBalancee)
-            }
-        })
     }
     
     func downloadAllUserList(){
@@ -156,7 +112,7 @@ class SendingControllerMod: UIViewController, UITableViewDelegate, UITableViewDa
     
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "usercell")
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "usersCellMod")
         let callOne = allUsers[indexPath.row]
         cell.textLabel?.text = callOne.wallet
         return cell
@@ -170,9 +126,6 @@ class SendingControllerMod: UIViewController, UITableViewDelegate, UITableViewDa
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let theAddress = allUsers[indexPath.row]
         addressTo = theAddress.wallet!
-        
-        
-        
         
     }
     
@@ -197,6 +150,7 @@ class SendingControllerMod: UIViewController, UITableViewDelegate, UITableViewDa
             print("Error saving to local database")
         }
     }
+    
     func saveNewValues(){
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         let userEntity = NSEntityDescription.entity(forEntityName: "UserData", in: context)!
@@ -224,7 +178,7 @@ class SendingControllerMod: UIViewController, UITableViewDelegate, UITableViewDa
     func getLastBalance(completion: @escaping (Double) -> Void){
         var availableBalance = 0.0
         baseReference = Database.database().reference(fromURL: "https://crforum-f63c5.firebaseio.com/")
-        let userRef = self.baseReference.child("users").child((Auth.auth().currentUser?.displayName)!)
+        let userRef = self.baseReference.child("moderators").child((Auth.auth().currentUser?.displayName)!)
         userRef.observeSingleEvent(of: .value, with: { (snapshot) in
             if let dictionary = snapshot.value as? [String: AnyObject]{
                 availableBalance = dictionary["balance"] as! Double
@@ -250,7 +204,7 @@ class SendingControllerMod: UIViewController, UITableViewDelegate, UITableViewDa
         userTable.reloadData()
         userTable.dataSource = self
         userTable.delegate = self
-        userTable.register(UITableViewCell.self, forCellReuseIdentifier: "usercell")
+        userTable.register(UITableViewCell.self, forCellReuseIdentifier: "usersCellMod")
         
         
         

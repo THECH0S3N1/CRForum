@@ -51,10 +51,10 @@ class SignUpModerator: UIViewController, UIImagePickerControllerDelegate, UINavi
     
     var moderatorIDString = ""
     var dataFile = ""
-    let fileName = "dataFile.txt"
+    let fileName = "dataFile2.txt"
     let modlistFile = "modList.txt"
     let docURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-    let context2 = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     let welcomeCredit = 100
     
     
@@ -65,9 +65,9 @@ class SignUpModerator: UIViewController, UIImagePickerControllerDelegate, UINavi
     func checkIfEmpty() -> Bool{
         if  (emailEntry.text?.isEmpty ?? true) || (nameEntry.text?.isEmpty ?? true) || (usernameEntry.text?.isEmpty ?? true) || (passwordEntry.text?.isEmpty ?? true) ||
             (phonenumberEntry.text?.isEmpty ?? true) || (moderatorID.text?.isEmpty ?? true){
-            return true
+            return false
         }
-        return false
+        return true
     }
     
     func saveModDataToFile(){
@@ -89,16 +89,19 @@ class SignUpModerator: UIViewController, UIImagePickerControllerDelegate, UINavi
     
     func loadModList(){
         let fileURL = docURL.appendingPathComponent(modlistFile)
-        modListRef.getData(maxSize: 10000){ data, error in
+        
+        modListRef.getData(maxSize: 1000000){ data, error in
             if let error = error {
                 self.errorText.text = ("error creating user: \(error.localizedDescription)")
                 print (self.errorText.text!)
             } else {
                 try? data?.write(to: fileURL)
+                print("success")
             }
         }
         do {
             moderatorIDString = try String(contentsOfFile: fileURL.path)
+            print("true")
         } catch {
             self.errorText.text = ("error creating user: \(error.localizedDescription)")
             print (self.errorText.text!)
@@ -124,17 +127,18 @@ class SignUpModerator: UIViewController, UIImagePickerControllerDelegate, UINavi
         baseReference = Database.database().reference(fromURL: "https://crforum-f63c5.firebaseio.com/")
         if let email = emailEntry.text, let pass = passwordEntry.text {
             Auth.auth().createUser(withEmail: email, password: pass) { (user, error) in
-                if error == nil && user != nil && self.checkIfEmpty() && self.checkIfModIDcorrect(){
-                    let directRef = self.baseReference.child("moderators").child(usrnm)
+                if error == nil && user != nil && self.checkIfEmpty() {
+                    print("User created successfully")
                     let address = self.getWalletAddress()
-                    let data = ["name": self.nameEntry.text!, "email": self.emailEntry.text!, "username": self.usernameEntry.text!, "phone": self.phonenumberEntry.text!, "balance": self.welcomeCredit, "moderatorID": self.moderatorID.text!, "wallet": address] as [String : Any]
-                    let userEntity = NSEntityDescription.entity(forEntityName: "UserData", in: self.context2)!
-                    let user = NSManagedObject(entity: userEntity, insertInto: self.context2)
-                    let transactionEntity = NSEntityDescription.entity(forEntityName: "TransactionData", in: self.context2)!
-                    let transaction = NSManagedObject(entity: transactionEntity, insertInto: self.context2)
+                    let directRef = self.baseReference.child("moderators").child(usrnm)
+                    let data = ["name": self.nameEntry.text!, "email": self.emailEntry.text!, "username": self.usernameEntry.text!, "phone": self.phonenumberEntry.text!, "balance": self.welcomeCredit, "wallet": address] as [String : Any]
+                    let userEntity = NSEntityDescription.entity(forEntityName: "UserData", in: self.context)!
+                    let user = NSManagedObject(entity: userEntity, insertInto: self.context)
+                    let transactionEntity = NSEntityDescription.entity(forEntityName: "TransactionData", in: self.context)!
+                    let transaction = NSManagedObject(entity: transactionEntity, insertInto: self.context)
                     let timestamp = NSDate().timeIntervalSince1970
                     let myTimeInterval = TimeInterval(timestamp)
-                    
+                    modflag = 1
                     directRef.updateChildValues(data, withCompletionBlock: {(error, reference) in
                         if error != nil{
                             print(error ?? "")
@@ -143,7 +147,7 @@ class SignUpModerator: UIViewController, UIImagePickerControllerDelegate, UINavi
                         print("saved")
                     })
                     
-                    // core data block save
+                    // core data block saving
                     
                     user.setValue(self.emailEntry.text, forKey: "email")
                     user.setValue(self.passwordEntry.text, forKey: "password")
@@ -157,16 +161,21 @@ class SignUpModerator: UIViewController, UIImagePickerControllerDelegate, UINavi
                     transaction.setValue(NSDate(timeIntervalSince1970: TimeInterval(myTimeInterval)), forKey: "timestamp")
                     
                     
-                    do { try self.context2.save()
+                    do { try self.context.save()
                     } catch {
                         self.errorText.text = ("Error saving to local database")
                     }
                     
-                    modflag = 1
-                    self.saveModDataToFile()
-                    self.uploadDataFile(self.fileName){ url in}
+                    //struct block
+                    
+                    totalBalance = totalBalance + 100
+                    userContacts.append(User(email: self.emailEntry.text!, name: self.nameEntry.text!, password: self.passwordEntry.text!, username: self.usernameEntry.text!, phone: self.phonenumberEntry.text!, profileImage: self.profileView.image!, totalBalance : Double(totalBalance)))
+                    
+                    
+                   
                     self.uploadImage(profile){ url in }
                     let changeReq = Auth.auth().currentUser?.createProfileChangeRequest()
+                    Auth.auth().currentUser?.sendEmailVerification { (error) in}
                     changeReq?.displayName = usrnm
                     changeReq?.commitChanges { error in }
                     self.performSegue(withIdentifier: "backToStartMod", sender: self)
@@ -249,7 +258,8 @@ class SignUpModerator: UIViewController, UIImagePickerControllerDelegate, UINavi
   
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadModList()
+        
+        //loadModList()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)

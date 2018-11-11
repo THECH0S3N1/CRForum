@@ -105,6 +105,11 @@ class SignUpUser: UIViewController, UIImagePickerControllerDelegate, UINavigatio
         if let email = emailEntry.text, let pass = passwordEntry.text {
             Auth.auth().createUser(withEmail: email, password: pass) { (user, error) in
                 if error == nil && user != nil && self.checkIfEmpty() {
+                    
+                    
+                    
+                    
+                    
                     print("User created successfully")
                     let address = self.getWalletAddress()
                     let directRef = self.baseReference.child("users").child(usrnm)

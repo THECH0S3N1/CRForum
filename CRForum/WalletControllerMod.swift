@@ -43,20 +43,20 @@ class WalletControllerMod: UIViewController, UITableViewDelegate, UITableViewDat
     
     
     @IBAction func sendCryptoButton(_ sender: Any) {
-        self.performSegue(withIdentifier: "sendCrypto", sender: self)
+        self.performSegue(withIdentifier: "sendCryptoMod", sender: self)
         
     }
     
     
     @IBAction func logOutButton(_ sender: Any) {
         try! Auth.auth().signOut()
-        self.performSegue(withIdentifier: "toScan", sender: self)
+        self.performSegue(withIdentifier: "toScanMod", sender: self)
         
     }
     
     func updateDatabaseValues(_ address: String,_ balance: Double){
         baseReference = Database.database().reference(fromURL: "https://crforum-f63c5.firebaseio.com/")
-        let directRef = baseReference.child("users").child(address)
+        let directRef = baseReference.child("moderators").child(address)
         directRef.updateChildValues(["balance": balance], withCompletionBlock: {(error, reference) in
             if error != nil{
                 print(error ?? "")
@@ -71,7 +71,7 @@ class WalletControllerMod: UIViewController, UITableViewDelegate, UITableViewDat
         let completion = { (newVal: Double) in
             self.databaseBalance = newVal
         }
-        SendingController().getLastBalance(completion: completion)
+        getLastBalance(completion: completion)
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             if (self.databaseBalance != self.globalBest){
                 self.currentBalanceLabel.text = String(format: "%.1f", self.databaseBalance)
@@ -80,6 +80,18 @@ class WalletControllerMod: UIViewController, UITableViewDelegate, UITableViewDat
                 self.globalBest = self.databaseBalance
             }
         }
+    }
+    
+    func getLastBalance(completion: @escaping (Double) -> Void){
+        var availableBalance = 0.0
+        baseReference = Database.database().reference(fromURL: "https://crforum-f63c5.firebaseio.com/")
+        let userRef = self.baseReference.child("moderators").child((Auth.auth().currentUser?.displayName)!)
+        userRef.observeSingleEvent(of: .value, with: { (snapshot) in
+            if let dictionary = snapshot.value as? [String: AnyObject]{
+                availableBalance = dictionary["balance"] as! Double
+                completion(availableBalance)
+            }
+        })
     }
     
     
@@ -128,11 +140,6 @@ class WalletControllerMod: UIViewController, UITableViewDelegate, UITableViewDat
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let completion = { (count: Int) in
-            
-            print("\(count)")
-        }
-        BlockChain().getIndexx(completion: completion)
         baseReference = Database.database().reference(fromURL: "https://crforum-f63c5.firebaseio.com/")
         activity.isHidden = true
         readItems()
@@ -149,12 +156,11 @@ class WalletControllerMod: UIViewController, UITableViewDelegate, UITableViewDat
                 print(data.value(forKey: "totalbalance") as! Double)
                 currentBalanceLabel.text = String(data.value(forKey: "totalbalance") as! Double)
                 globalBest = data.value(forKey: "totalbalance") as! Double
-                updateDatabaseValues((Auth.auth().currentUser?.displayName)!, (data.value(forKey: "totalbalance") as! Double))
             }
         } catch {
             print("Loading data from storage failed")
         }
-        
+        checkForUpdate()
         
     }
     

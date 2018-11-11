@@ -76,10 +76,11 @@ class StartViewController: UIViewController {
         }
     }
     
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        avPlayer.pause()
-        paused = true
+        //avPlayer.pause()
+        //paused = true
     }
     
     @objc func keyboardWillChange(notification: Notification){

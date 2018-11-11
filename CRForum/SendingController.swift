@@ -10,9 +10,10 @@ import Foundation
 import UIKit
 import CoreData
 import Firebase
-
-
-
+var sentToValue = 0.0
+var sentToUsername = ""
+var addressTo = ""
+var totalSent = 0.0
 // in order to complete a transaction between two users, two operations should occur
 // 1 - recording the transaction to the blockchain
 // 2 - updating wallet values for both receveing and sending parties.
@@ -21,12 +22,11 @@ import Firebase
 class SendingController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     var baseReference: DatabaseReference!
     var allUsers = [UserWallets]()
-    var addressTo = ""
+    
     var amountCurrent = 0.0
     var totalLocalBalance = 0.0
     var newValue = 0.0
-    var sentToUsername = ""
-    var sentToValue = 0.0
+    
     @IBOutlet weak var balanceLabel: UILabel!
     @IBOutlet weak var amountToSendField: UITextField!
     @IBOutlet weak var userTable: UITableView!
@@ -54,12 +54,12 @@ class SendingController: UIViewController, UITableViewDelegate, UITableViewDataS
             }
             BlockChain().getLastHash(completion: completion3)
             DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
-                BlockChain().saveBlockDataToDatabase(amount, self.addressTo, addressFrom, dateString, prevhash, hash, index)
+                BlockChain().saveBlockDataToDatabase(amount, addressTo, addressFrom, dateString, prevhash, hash, index)
             }
             removePrevValue()
             saveNewValues()
             WalletController().updateDatabaseValues((Auth.auth().currentUser?.displayName)!, newValue)
-            getUsername()
+            AllUserUpdates().getUsername(((self.amountToSendField.text! as NSString).doubleValue))
             performSegue(withIdentifier: "sentSuccess", sender: self)
         }else{
             errorField.text = "Error. Please enter valid amount"
@@ -68,36 +68,7 @@ class SendingController: UIViewController, UITableViewDelegate, UITableViewDataS
         
     }
     
-    func getUID(completion: @escaping (String) -> Void){
-        var uid = ""
-        baseReference = Database.database().reference(fromURL: "https://crforum-f63c5.firebaseio.com/").child("users")
-        baseReference.queryOrdered(byChild: "wallet").queryEqual(toValue: addressTo).observeSingleEvent(of: .childAdded, with: { (snapshot) in
-            uid = snapshot.key
-            print(uid)
-            
-            completion(uid)
-        })
-    }
     
-    
-    func getUsername(){
-        
-        let completion5 = { (uid: String)in
-            self.sentToUsername = uid
-        }
-        getUID(completion: completion5)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
-            print(self.sentToUsername)
-            let completion4 = { (newOtherVal: Double) in
-                self.sentToValue = newOtherVal
-            }
-            self.getReceiverBalanceToUpdate(self.sentToUsername, completion: completion4)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                WalletController().updateDatabaseValues(self.sentToUsername, (self.sentToValue+((self.amountToSendField.text! as NSString).doubleValue)))
-            }
-        }
-        
-    }
     
     deinit {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
@@ -116,29 +87,17 @@ class SendingController: UIViewController, UITableViewDelegate, UITableViewDataS
         return true
     }
     
-    func getReceiverBalanceToUpdate(_ id: String, completion: @escaping (Double)->Void){
-        var availableBalancee = 0.0
-        baseReference = Database.database().reference(fromURL: "https://crforum-f63c5.firebaseio.com/")
-        let userRef = self.baseReference.child("users").child(id)
-        userRef.observeSingleEvent(of: .value, with: { (snapshot) in
-            if let dictionary = snapshot.value as? [String: AnyObject]{
-                availableBalancee = dictionary["balance"] as! Double
-                completion(availableBalancee)
-            }
-        })
-    }
+    
     
     func downloadAllUserList(){
         baseReference = Database.database().reference(fromURL: "https://crforum-f63c5.firebaseio.com/")
         let userRef = self.baseReference.child("users")
         let modRef = self.baseReference.child("moderators")
         userRef.observe(.childAdded, with: {(snapshot: DataSnapshot) in
-            print(snapshot)
             if let dictionary = snapshot.value as? [String: AnyObject]{
                 let oUser = UserWallets()
                 oUser.wallet = dictionary["wallet"] as? String
                 self.allUsers.append(oUser)
-                print(oUser.wallet!)
             }
         })
         
@@ -150,8 +109,6 @@ class SendingController: UIViewController, UITableViewDelegate, UITableViewDataS
                 
             }
         })
-        
-        
     }
     
     
@@ -176,14 +133,8 @@ class SendingController: UIViewController, UITableViewDelegate, UITableViewDataS
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let theAddress = allUsers[indexPath.row]
         addressTo = theAddress.wallet!
-
-        
-        
-        
      }
-    
-    
-    
+
     func removePrevValue(){
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "UserData")

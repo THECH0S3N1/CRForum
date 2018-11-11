@@ -7,6 +7,7 @@
 //
 import UIKit
 import Firebase
+import CoreData
 import LocalAuthentication
 
 import AVFoundation
@@ -18,6 +19,8 @@ class touchIDLogin: UIViewController {
     var avPlayerLayer: AVPlayerLayer!
     var paused: Bool = false
     var currentUserLabel = ""
+    var baseReference: DatabaseReference!
+    var sig = 0
     
     @IBOutlet weak var diffUser: UIButton!
     @IBAction func diffUser(_ sender: UIButton) {
@@ -27,8 +30,10 @@ class touchIDLogin: UIViewController {
     }
     
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        checkIfMod()
         print(Auth.auth().currentUser?.displayName as Any)
         currentUserLabel = "Not "
         currentUserLabel.append((Auth.auth().currentUser?.displayName)!)
@@ -62,12 +67,24 @@ class touchIDLogin: UIViewController {
         
     }
     
-    @IBAction func touchID_login_button(_ sender: Any) {
-        let context:LAContext = LAContext()        
+    func checkIfMod(){
+        baseReference = Database.database().reference(fromURL: "https://crforum-f63c5.firebaseio.com/")
+        let userRef = self.baseReference.child("moderators").child((Auth.auth().currentUser?.displayName)!)
+        userRef.observeSingleEvent(of: .value, with: {(snapshot) in
+            if snapshot.exists() {
+                print("sigggg")
+                self.sig = 1
+            }
+        })
+    }
+    
+    
+    @IBAction func touchID_login_button(_ sender: Any) { 
+        let context:LAContext = LAContext()
         if context.canEvaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, error: nil){
             context.evaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, localizedReason: "Please login with your fingerprint to access CRForum", reply: {(wasCorrect, error) in
                 if wasCorrect && Auth.auth().currentUser != nil {
-                    if modflag == 1{
+                    if self.sig == 1 {
                         self.performSegue(withIdentifier: "loginModerator", sender: self)
                     }else{
                         self.performSegue(withIdentifier: "loginUser", sender: self)
