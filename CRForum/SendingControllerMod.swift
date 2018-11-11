@@ -171,10 +171,6 @@ class SendingControllerMod: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
-    
-    
-    
-    
     func getLastBalance(completion: @escaping (Double) -> Void){
         var availableBalance = 0.0
         baseReference = Database.database().reference(fromURL: "https://crforum-f63c5.firebaseio.com/")
@@ -206,7 +202,7 @@ class SendingControllerMod: UIViewController, UITableViewDelegate, UITableViewDa
         userTable.delegate = self
         userTable.register(UITableViewCell.self, forCellReuseIdentifier: "usersCellMod")
         
-        
+       
         
         let completion = { (availableBalance: Double) in
             self.amountCurrent = availableBalance

@@ -10,6 +10,7 @@
 		2592E1B0A8AA09471088B5FA /* Pods_CRForum.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E08F614995DD431CF4F9E58 /* Pods_CRForum.framework */; };
 		55BB41B034AF69A5ADE1C0EA /* Pods_CRForumTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA5604B614F52FF3568F2C71 /* Pods_CRForumTests.framework */; };
 		9C4800272196FC2800908AB8 /* UserWallets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4800262196FC2800908AB8 /* UserWallets.swift */; };
+		9CADE2C62198E4900044D2D3 /* ForumPostTitles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CADE2C52198E4900044D2D3 /* ForumPostTitles.swift */; };
 		9CEB110621989BA6002E5169 /* AllUserUpdates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEB110521989BA6002E5169 /* AllUserUpdates.swift */; };
 		9CF62FE621921D2700FB75B2 /* SendingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF62FE521921D2700FB75B2 /* SendingController.swift */; };
 		9CF62FE821921D5F00FB75B2 /* SendingControllerMod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF62FE721921D5F00FB75B2 /* SendingControllerMod.swift */; };
@@ -67,6 +68,7 @@
 		82E591D7D82CBE6FE6659922 /* Pods-CRForumUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CRForumUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CRForumUITests/Pods-CRForumUITests.release.xcconfig"; sourceTree = "<group>"; };
 		8E08F614995DD431CF4F9E58 /* Pods_CRForum.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CRForum.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C4800262196FC2800908AB8 /* UserWallets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserWallets.swift; sourceTree = "<group>"; };
+		9CADE2C52198E4900044D2D3 /* ForumPostTitles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForumPostTitles.swift; sourceTree = "<group>"; };
 		9CE9C91E21949E7300118913 /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
 		9CEB110521989BA6002E5169 /* AllUserUpdates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllUserUpdates.swift; sourceTree = "<group>"; };
 		9CF62FE521921D2700FB75B2 /* SendingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendingController.swift; sourceTree = "<group>"; };
@@ -198,6 +200,7 @@
 				EA062D8C20F94C1D00D10857 /* GenerationController.swift */,
 				EA10B8AD21480F4800632069 /* GenerationControllerMod.swift */,
 				9CEB110521989BA6002E5169 /* AllUserUpdates.swift */,
+				9CADE2C52198E4900044D2D3 /* ForumPostTitles.swift */,
 				EA1C26F4216660390077A459 /* BlockBase.swift */,
 				9CF62FE521921D2700FB75B2 /* SendingController.swift */,
 				9CF62FE721921D5F00FB75B2 /* SendingControllerMod.swift */,
@@ -488,6 +491,7 @@
 				EA27B9BD2166847500A14DAD /* database.xcdatamodeld in Sources */,
 				EA10B8B42148101D00632069 /* VerificationControllerMod.swift in Sources */,
 				EAECC20E20F95E03000F2482 /* StartScreen.swift in Sources */,
+				9CADE2C62198E4900044D2D3 /* ForumPostTitles.swift in Sources */,
 				EA10B8B22148100700632069 /* VerificationController.swift in Sources */,
 				EAECC20C20F95DF1000F2482 /* ForumController.swift in Sources */,
 				EA10B8B021480FE900632069 /* ForumControllerMod.swift in Sources */,

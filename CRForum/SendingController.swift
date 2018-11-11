@@ -113,7 +113,6 @@ class SendingController: UIViewController, UITableViewDelegate, UITableViewDataS
     
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        print(allUsers.count)
         return allUsers.count
     }
     

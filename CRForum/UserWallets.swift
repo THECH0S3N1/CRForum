@@ -14,3 +14,5 @@ class UserWallets: NSObject{
     var wallet: String?
 
 }
+
+
