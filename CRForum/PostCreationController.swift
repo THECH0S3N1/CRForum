@@ -14,9 +14,8 @@ import Firebase
 class PostCreationController: UIViewController{
     
     var baseReference: DatabaseReference!
-    
+    var modAddress = ""
     @IBOutlet weak var forumTitleEntry: UITextField!
-    
     @IBOutlet weak var textCreator: UITextView!
     
     func createForumID()->String{
@@ -37,7 +36,7 @@ class PostCreationController: UIViewController{
     
     func uploadForumPost(_ forumID: String){
         baseReference = Database.database().reference(fromURL: "https://crforum-f63c5.firebaseio.com/")
-        let data = ["text": textCreator.text, "title": forumTitleEntry.text!] as [String : Any]
+        let data = ["text": textCreator.text, "title": forumTitleEntry.text!, "wallet": modAddress] as [String : Any]
         let forumRef = self.baseReference.child("forum").child(forumID)
         forumRef.updateChildValues(data, withCompletionBlock: {(error, reference) in
             if error != nil{
@@ -62,7 +61,10 @@ class PostCreationController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        let completion = { (address: String) in
+            self.modAddress = address
+        }
+        GenerationControllerMod().getCurrentUserWalletAddress(completion: completion)
     }
     
     

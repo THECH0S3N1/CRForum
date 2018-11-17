@@ -40,6 +40,7 @@ class ReadPostControllerMod: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         forumPostTitle.title = postTitle
+        textViewer.isEditable = false
         let completion = { (id: String) in
             self.forumToSearch = id
         }
@@ -49,6 +50,7 @@ class ReadPostControllerMod: UIViewController{
             self.loadText()
         }
     }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -128,9 +128,7 @@ class SendingControllerMod: UIViewController, UITableViewDelegate, UITableViewDa
         addressTo = theAddress.wallet!
         
     }
-    
-    
-    
+
     func removePrevValue(){
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "UserData")
@@ -201,9 +199,6 @@ class SendingControllerMod: UIViewController, UITableViewDelegate, UITableViewDa
         userTable.dataSource = self
         userTable.delegate = self
         userTable.register(UITableViewCell.self, forCellReuseIdentifier: "usersCellMod")
-        
-       
-        
         let completion = { (availableBalance: Double) in
             self.amountCurrent = availableBalance
         }

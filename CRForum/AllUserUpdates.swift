@@ -11,6 +11,7 @@ import UIKit
 import CoreData
 import Firebase
 
+
 class AllUserUpdates{
     var type = 0
     var baseReference: DatabaseReference!
@@ -57,12 +58,15 @@ class AllUserUpdates{
         })
     }
     
+    
+    
+    
     func getUsername(_ val: Double){
         let completion5 = { (uid: String) in
             sentToUsername = uid
         }
         self.getUIDModerator(completion: completion5)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             if sentToUsername == ""{
                 self.type = 0
                 let completion5 = { (uid: String)in

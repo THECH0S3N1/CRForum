@@ -24,7 +24,8 @@ class WalletControllerMod: UIViewController, UITableViewDelegate, UITableViewDat
     var databaseBalance = 0.0
     var globalBest = 0.0
     
-    @IBOutlet weak var activity: UIActivityIndicatorView!
+    
+    @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var currentBalanceLabel: UILabel!
     @IBOutlet weak var transactionTable: UITableView!
     @IBOutlet weak var unconfirmedPurchaseslabel: UILabel!
@@ -139,9 +140,12 @@ class WalletControllerMod: UIViewController, UITableViewDelegate, UITableViewDat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let completion = { (address: String) in
+            self.addressLabel.text = address
+        }
+        GenerationControllerMod().getCurrentUserWalletAddress(completion: completion)
         
         baseReference = Database.database().reference(fromURL: "https://crforum-f63c5.firebaseio.com/")
-        activity.isHidden = true
         readItems()
         transactionTable.reloadData()
         transactionTable.dataSource = self
