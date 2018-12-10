@@ -9,8 +9,11 @@
 /* Begin PBXBuildFile section */
 		2592E1B0A8AA09471088B5FA /* Pods_CRForum.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E08F614995DD431CF4F9E58 /* Pods_CRForum.framework */; };
 		55BB41B034AF69A5ADE1C0EA /* Pods_CRForumTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA5604B614F52FF3568F2C71 /* Pods_CRForumTests.framework */; };
+		9C2A624A21BEDF03006B5106 /* blockHashes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2A624921BEDF03006B5106 /* blockHashes.swift */; };
+		9C2A624C21BEE949006B5106 /* BlockViewMod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2A624B21BEE949006B5106 /* BlockViewMod.swift */; };
+		9C36754421BEF9A1002B99AD /* BlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C36754321BEF9A1002B99AD /* BlockView.swift */; };
 		9C4800272196FC2800908AB8 /* UserWallets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4800262196FC2800908AB8 /* UserWallets.swift */; };
-		9CADE2C62198E4900044D2D3 /* ForumPostTitles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CADE2C52198E4900044D2D3 /* ForumPostTitles.swift */; };
+		9CB0717421BC5FA40007CEC7 /* ForumPostTitles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CADE2C52198E4900044D2D3 /* ForumPostTitles.swift */; };
 		9CEB110621989BA6002E5169 /* AllUserUpdates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEB110521989BA6002E5169 /* AllUserUpdates.swift */; };
 		9CF62FE621921D2700FB75B2 /* SendingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF62FE521921D2700FB75B2 /* SendingController.swift */; };
 		9CF62FE821921D5F00FB75B2 /* SendingControllerMod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF62FE721921D5F00FB75B2 /* SendingControllerMod.swift */; };
@@ -32,8 +35,8 @@
 		EA10B8AC21480E8700632069 /* WalletControllerMod.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA10B8AB21480E8700632069 /* WalletControllerMod.swift */; };
 		EA10B8AE21480F4800632069 /* GenerationControllerMod.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA10B8AD21480F4800632069 /* GenerationControllerMod.swift */; };
 		EA10B8B021480FE900632069 /* ForumControllerMod.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA10B8AF21480FE900632069 /* ForumControllerMod.swift */; };
-		EA10B8B22148100700632069 /* VerificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA10B8B12148100700632069 /* VerificationController.swift */; };
-		EA10B8B42148101D00632069 /* VerificationControllerMod.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA10B8B32148101D00632069 /* VerificationControllerMod.swift */; };
+		EA10B8B22148100700632069 /* BlockchainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA10B8B12148100700632069 /* BlockchainController.swift */; };
+		EA10B8B42148101D00632069 /* BlockchainControllerMod.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA10B8B32148101D00632069 /* BlockchainControllerMod.swift */; };
 		EA1C26F5216660390077A459 /* BlockBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1C26F4216660390077A459 /* BlockBase.swift */; };
 		EA27B9BD2166847500A14DAD /* database.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EA27B9BB2166847500A14DAD /* database.xcdatamodeld */; };
 		EA6A181321013ED1002002D8 /* SignUpUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6A181221013ED1002002D8 /* SignUpUser.swift */; };
@@ -67,6 +70,9 @@
 		7CF8E34B11FF9C4D3853F54A /* Pods-CRForum.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CRForum.release.xcconfig"; path = "Pods/Target Support Files/Pods-CRForum/Pods-CRForum.release.xcconfig"; sourceTree = "<group>"; };
 		82E591D7D82CBE6FE6659922 /* Pods-CRForumUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CRForumUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CRForumUITests/Pods-CRForumUITests.release.xcconfig"; sourceTree = "<group>"; };
 		8E08F614995DD431CF4F9E58 /* Pods_CRForum.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CRForum.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9C2A624921BEDF03006B5106 /* blockHashes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = blockHashes.swift; sourceTree = "<group>"; };
+		9C2A624B21BEE949006B5106 /* BlockViewMod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockViewMod.swift; sourceTree = "<group>"; };
+		9C36754321BEF9A1002B99AD /* BlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockView.swift; sourceTree = "<group>"; };
 		9C4800262196FC2800908AB8 /* UserWallets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserWallets.swift; sourceTree = "<group>"; };
 		9CADE2C52198E4900044D2D3 /* ForumPostTitles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForumPostTitles.swift; sourceTree = "<group>"; };
 		9CE9C91E21949E7300118913 /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
@@ -100,8 +106,8 @@
 		EA10B8AB21480E8700632069 /* WalletControllerMod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletControllerMod.swift; sourceTree = "<group>"; };
 		EA10B8AD21480F4800632069 /* GenerationControllerMod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerationControllerMod.swift; sourceTree = "<group>"; };
 		EA10B8AF21480FE900632069 /* ForumControllerMod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForumControllerMod.swift; sourceTree = "<group>"; };
-		EA10B8B12148100700632069 /* VerificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationController.swift; sourceTree = "<group>"; };
-		EA10B8B32148101D00632069 /* VerificationControllerMod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationControllerMod.swift; sourceTree = "<group>"; };
+		EA10B8B12148100700632069 /* BlockchainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockchainController.swift; sourceTree = "<group>"; };
+		EA10B8B32148101D00632069 /* BlockchainControllerMod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockchainControllerMod.swift; sourceTree = "<group>"; };
 		EA1C26F4216660390077A459 /* BlockBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockBase.swift; sourceTree = "<group>"; };
 		EA27B9BC2166847500A14DAD /* UserModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UserModel.xcdatamodel; sourceTree = "<group>"; };
 		EA6A181221013ED1002002D8 /* SignUpUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpUser.swift; sourceTree = "<group>"; };
@@ -200,19 +206,22 @@
 				EA062D8C20F94C1D00D10857 /* GenerationController.swift */,
 				EA10B8AD21480F4800632069 /* GenerationControllerMod.swift */,
 				9CEB110521989BA6002E5169 /* AllUserUpdates.swift */,
-				9CADE2C52198E4900044D2D3 /* ForumPostTitles.swift */,
 				EA1C26F4216660390077A459 /* BlockBase.swift */,
 				9CF62FE521921D2700FB75B2 /* SendingController.swift */,
 				9CF62FE721921D5F00FB75B2 /* SendingControllerMod.swift */,
 				9C4800262196FC2800908AB8 /* UserWallets.swift */,
 				EAECC20B20F95DF1000F2482 /* ForumController.swift */,
 				EA10B8AF21480FE900632069 /* ForumControllerMod.swift */,
-				EA10B8B12148100700632069 /* VerificationController.swift */,
-				EA10B8B32148101D00632069 /* VerificationControllerMod.swift */,
+				EA10B8B12148100700632069 /* BlockchainController.swift */,
+				EA10B8B32148101D00632069 /* BlockchainControllerMod.swift */,
 				9CF62FE921921D8E00FB75B2 /* ReadPostController.swift */,
 				9CF62FEB21921DA500FB75B2 /* ReadPostControllerMod.swift */,
 				9CF62FED21921DDE00FB75B2 /* PostModifierController.swift */,
 				9CF62FEF21921DF600FB75B2 /* PostCreationController.swift */,
+				9C36754321BEF9A1002B99AD /* BlockView.swift */,
+				9C2A624B21BEE949006B5106 /* BlockViewMod.swift */,
+				9CADE2C52198E4900044D2D3 /* ForumPostTitles.swift */,
+				9C2A624921BEDF03006B5106 /* blockHashes.swift */,
 				EA062D8E20F94C1D00D10857 /* Main.storyboard */,
 				EA062D9320F94C1D00D10857 /* LaunchScreen.storyboard */,
 				EA062D9120F94C1D00D10857 /* Assets.xcassets */,
@@ -486,14 +495,16 @@
 				9CF62FEA21921D8E00FB75B2 /* ReadPostController.swift in Sources */,
 				EA062D8920F94C1D00D10857 /* AppDelegate.swift in Sources */,
 				EA6A181521013FAF002002D8 /* SignUpModerator.swift in Sources */,
+				9C2A624C21BEE949006B5106 /* BlockViewMod.swift in Sources */,
 				9CF62FE821921D5F00FB75B2 /* SendingControllerMod.swift in Sources */,
 				9C4800272196FC2800908AB8 /* UserWallets.swift in Sources */,
 				EA27B9BD2166847500A14DAD /* database.xcdatamodeld in Sources */,
-				EA10B8B42148101D00632069 /* VerificationControllerMod.swift in Sources */,
+				EA10B8B42148101D00632069 /* BlockchainControllerMod.swift in Sources */,
 				EAECC20E20F95E03000F2482 /* StartScreen.swift in Sources */,
-				9CADE2C62198E4900044D2D3 /* ForumPostTitles.swift in Sources */,
-				EA10B8B22148100700632069 /* VerificationController.swift in Sources */,
+				9CB0717421BC5FA40007CEC7 /* ForumPostTitles.swift in Sources */,
+				EA10B8B22148100700632069 /* BlockchainController.swift in Sources */,
 				EAECC20C20F95DF1000F2482 /* ForumController.swift in Sources */,
+				9C36754421BEF9A1002B99AD /* BlockView.swift in Sources */,
 				EA10B8B021480FE900632069 /* ForumControllerMod.swift in Sources */,
 				9CF62FEC21921DA500FB75B2 /* ReadPostControllerMod.swift in Sources */,
 				EABB4B8121076D9A00334B33 /* touchIDLogin.swift in Sources */,
@@ -502,6 +513,7 @@
 				EA062D8B20F94C1D00D10857 /* WalletController.swift in Sources */,
 				9CF62FF021921DF600FB75B2 /* PostCreationController.swift in Sources */,
 				9CF62FE621921D2700FB75B2 /* SendingController.swift in Sources */,
+				9C2A624A21BEDF03006B5106 /* blockHashes.swift in Sources */,
 				EA1C26F5216660390077A459 /* BlockBase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

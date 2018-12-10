@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 import CoreData
 import Firebase
+import LocalAuthentication
+
 var sentToValue = 0.0
 var sentToUsername = ""
 var addressTo = ""
@@ -34,37 +36,46 @@ class SendingController: UIViewController, UITableViewDelegate, UITableViewDataS
     
     @IBOutlet weak var errorField: UILabel!
     @IBAction func sendButton(_ sender: Any) {
-        if checkIfEmpty() && checkIfAmountIsValid(){
-            var addressFrom = ""
-            var index = Int()
-            var prevhash = String()
-            let dateString = GenerationController().getTimeString()
-            let completion = { (wallet: String) in
-                addressFrom = wallet
-            }
-            GenerationController().getCurrentUserWalletAddress(completion: completion)
-            let amount = (amountToSendField.text! as NSString).doubleValue
-            let hash = BlockChain().createNewBlock(addressTo, addressFrom, amount, dateString)
-            let completion2 = { (count: Int) in
-                index = count
-            }
-            BlockChain().getIndexx(completion: completion2)
-            let completion3 = { (last: String) in
-                prevhash = last
-            }
-            BlockChain().getLastHash(completion: completion3)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
-                BlockChain().saveBlockDataToDatabase(amount, addressTo, addressFrom, dateString, prevhash, hash, index)
-            }
-            removePrevValue()
-            saveNewValues()
-            WalletController().updateDatabaseValues((Auth.auth().currentUser?.displayName)!, newValue)
-            AllUserUpdates().getUsername(((self.amountToSendField.text! as NSString).doubleValue))
-            performSegue(withIdentifier: "sentSuccess", sender: self)
-        }else{
-            errorField.text = "Error. Please enter valid amount"
-            
+        let context:LAContext = LAContext()
+        if context.canEvaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, error: nil){
+            context.evaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, localizedReason: "Please login with your fingerprint for the transfer to commence", reply: {(wasCorrect, error) in
+                if wasCorrect{
+                    if self.checkIfEmpty() && self.checkIfAmountIsValid(){
+                        var addressFrom = ""
+                        var index = Int()
+                        var prevhash = String()
+                        let dateString = GenerationController().getTimeString()
+                        let completion = { (wallet: String) in
+                            addressFrom = wallet
+                        }
+                        GenerationController().getCurrentUserWalletAddress(completion: completion)
+                        let amount = (self.amountToSendField.text! as NSString).doubleValue
+                        let hash = BlockChain().createNewBlock(addressTo, addressFrom, amount, dateString)
+                        let completion2 = { (count: Int) in
+                            index = count
+                        }
+                        BlockChain().getIndexx(completion: completion2)
+                        let completion3 = { (last: String) in
+                            prevhash = last
+                        }
+                        BlockChain().getLastHash(completion: completion3)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                            BlockChain().saveBlockDataToDatabase(amount, addressTo, addressFrom, dateString, prevhash, hash, index)
+                        }
+                        self.removePrevValue()
+                        self.saveNewValues()
+                        WalletController().updateDatabaseValues((Auth.auth().currentUser?.displayName)!, self.newValue)
+                        AllUserUpdates().getUsername(((self.amountToSendField.text! as NSString).doubleValue))
+                        self.performSegue(withIdentifier: "sentSuccess", sender: self)
+                    }else{
+                        self.errorField.text = "Error. Please enter valid amount"
+                        
+                    }
+                    
+                }
+            })
         }
+        
         
     }
     
